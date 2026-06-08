@@ -1117,9 +1117,151 @@ html, body { overflow-x: hidden; max-width: 100%; }
   #view-home .fa-cta .reass div { font-size: 0.86rem; }
 }
 
+/* ================================================================
+   UX/ACCESSIBILITY FIXES — audit giugno 2026
+   ================================================================ */
+
+/* 1 — Focus rings (WCAG 2.1 AA) */
+#view-home .btn:focus-visible,
+#view-home .nav-links a:focus-visible,
+#view-home .fa-faq-q:focus-visible,
+#view-home .nav-hamburger:focus-visible,
+#view-home .dots a:focus-visible,
+#view-home .fa-top:focus-visible,
+#view-home .wa-float:focus-visible,
+#view-home .ck-accept:focus-visible,
+#view-home .ck-decline:focus-visible,
+#view-home .cv-stickybar .btn:focus-visible,
+#view-home .foot a:focus-visible,
+#view-home .logo:focus-visible {
+  outline: 3px solid var(--color-accent);
+  outline-offset: 3px;
+}
+#view-home .cv-chip:focus-within {
+  outline: 3px solid var(--color-accent);
+  outline-offset: 2px;
+}
+#view-motion .btn:focus-visible,
+#view-motion .nav-links a:focus-visible,
+#view-motion .nav-back:focus-visible,
+#view-motion .nav-hamburger:focus-visible,
+#view-motion .fa-top:focus-visible,
+#view-motion .dots a:focus-visible,
+#view-motion .foot a:focus-visible,
+#view-motion .logo:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 3px;
+}
+#view-motion .mo-chip:focus-within {
+  outline: 3px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* 2 — Touch targets ≥ 44×44px */
+#view-home .cv-chip { min-height: 44px; padding: 10px 14px; }
+#view-motion .mo-chip { min-height: 44px; padding: 10px 13px; }
+#view-home .cv-consent input,
+#view-home .fa-form .cv-consent input,
+#view-motion .mo-consent input { width: 20px; height: 20px; cursor: pointer; }
+
+/* 3 — Placeholder contrast (dark form bg → ~3.5:1 min) */
+#view-home .fa-input::placeholder { color: rgba(245,243,239,0.58); }
+#view-motion .mo-input::placeholder { color: rgba(236,244,238,0.58); }
+
+/* 4 — color-mix() fallbacks (Safari <15.4, Chrome <111) */
+#view-home .nav {
+  background: rgba(245,243,239,0.88);
+  background: color-mix(in srgb, var(--color-surface) 88%, transparent);
+}
+#view-home .nav[data-dark] {
+  background: rgba(22,32,43,0.90);
+  background: color-mix(in srgb, var(--color-surface-dark) 90%, transparent);
+}
+#view-home .cv-stickybar {
+  background: rgba(22,32,43,0.96);
+  background: color-mix(in srgb, var(--color-surface-dark) 96%, transparent);
+}
+#view-motion .nav {
+  background: rgba(11,19,16,0.86);
+  background: color-mix(in srgb, var(--bg) 86%, transparent);
+}
+
+/* 5 — Testimonial carousel: pausa su focus da tastiera */
+#view-home .tw-cols:focus-within .tw-track { animation-play-state: paused; }
+
+/* 6 — Secondary color: contrasto minimo 4.5:1 su #F5F3EF */
+#view-home .eyebrow { color: #3E5C4E; }
+#view-home .fa-meta span.cap,
+#view-home .fa-srow p,
+#view-home .fa-step p { color: #4A5966; }
+
+/* 7 — Motion hamburger menu */
+#view-motion .nav-hamburger {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: 40px;
+  height: 40px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  border-radius: var(--radius-sm);
+  transition: var(--transition-fast);
+}
+#view-motion .nav-hamburger span {
+  display: block;
+  width: 22px;
+  height: 2px;
+  background: var(--ink);
+  border-radius: 2px;
+  transition: transform 280ms cubic-bezier(.4,0,.2,1), opacity 200ms ease;
+  transform-origin: center;
+}
+#view-motion .nav-hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+#view-motion .nav-hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+#view-motion .nav-hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+#view-motion .nav-mobile-panel {
+  display: none;
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: var(--surface);
+  z-index: 49;
+  flex-direction: column;
+  padding: 100px var(--gutter) 48px;
+  opacity: 0;
+  transform: translateY(-8px);
+  transition: opacity 280ms ease, transform 280ms cubic-bezier(.4,0,.2,1);
+  pointer-events: none;
+  overflow-y: auto;
+}
+#view-motion .nav-mobile-panel.open { opacity: 1; transform: none; pointer-events: auto; }
+#view-motion .nav-mobile-panel a {
+  font-family: var(--font-display);
+  font-size: clamp(1.8rem, 6vw, 2.6rem);
+  font-weight: var(--fw-semibold);
+  color: var(--ink);
+  padding: 16px 0;
+  border-bottom: 1px solid var(--line);
+  display: block;
+  transition: color var(--transition-fast);
+}
+#view-motion .nav-mobile-panel a:hover,
+#view-motion .nav-mobile-panel a:focus { color: var(--accent); }
+#view-motion .nav-mobile-cta { margin-top: 32px; display: flex; flex-direction: column; gap: 12px; }
+@media (max-width: 920px) {
+  #view-motion .nav-hamburger { display: flex; }
+  #view-motion .nav-cta .btn-accent { display: none; }
+  #view-motion .nav-mobile-panel { display: flex; }
+}
+
 </style>
 </head>
 <body>
+
+<a href="#top" class="skip-link" style="position:fixed;top:-100px;left:8px;z-index:10000;padding:8px 16px;background:var(--color-accent,#0FB87A);color:#16202B;font-weight:700;font-size:0.9rem;border-radius:6px;text-decoration:none;transition:top 0.2s;">Vai al contenuto principale</a>
+<style>.skip-link:focus{top:8px;}</style>
 
 <div id="pt"><div class="pt-word">MO<span>TION</span></div></div>
 
@@ -1386,7 +1528,7 @@ html, body { overflow-x: hidden; max-width: 100%; }
   <div class="wrap fa-testi-grid">
     <img src="https://www.tonirusso.it/wp-content/uploads/2024/09/WhatsApp-Image-2024-09-20-at-13.36.31-1-753x1024.jpeg" alt="Recensione paziente" data-reveal="left" style="width:100%;aspect-ratio:4/5;object-fit:cover;object-position:top;border-radius:var(--radius-md);display:block;" />
     <div data-reveal="right">
-      <div class="fa-stars">★★★★★</div>
+      <div class="fa-stars" role="img" aria-label="5 stelle su 5">★★★★★</div>
       <p class="fa-quote"><span class="mk">«</span>Mi ero rivolta al dottor Russo per una cervicalgia cronica. La priorità era tornare ad allenarmi: così è nato un percorso serio e personalizzato. Mi sono sentita seguita, compresa, guidata.<span class="mk">»</span></p>
       <div class="fa-by">
         <div class="tw-av" style="width:54px;height:54px;font-size:1.05rem;">GD</div>
@@ -1407,41 +1549,41 @@ html, body { overflow-x: hidden; max-width: 100%; }
     <div class="tw-cols" data-reveal data-delay="120">
       <div class="tw-col">
         <div class="tw-track" style="--dur:46s;">
-          <div class="tcard"><div class="tstars">★★★★★</div><p class="txt">Ho eseguito una visita fisiatrica presso il Dr. Russo e non posso che confermare una più che buona impressione. Ha saputo descrivere la mia problematica in modo estremamente chiaro e semplice, rendendo comprensibile ogni dettaglio del percorso terapeutico. Lo consiglio.</p><div class="by"><div class="tw-av">EC</div><div><h4>E. C.</h4><div class="role">Prima visita fisiatrica</div></div></div><div class="tw-src"><span class="vf"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 100 20 10 10 0 000-20zm-1.2 14.2l-4-4 1.4-1.4 2.6 2.6 5.6-5.6 1.4 1.4-7 7z"/></svg>Verificata</span><span class="where">MioDottore</span></div></div>
-          <div class="tcard"><div class="tstars">★★★★★</div><p class="txt">Professionale ed esaustivo nelle spiegazioni. Puntuale. Pulizia studio eccellente.</p><div class="by"><div class="tw-av">R</div><div><h4>Rita</h4><div class="role">Ecografia muscolotendinea</div></div></div><div class="tw-src"><span class="vf"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 100 20 10 10 0 000-20zm-1.2 14.2l-4-4 1.4-1.4 2.6 2.6 5.6-5.6 1.4 1.4-7 7z"/></svg>Verificata</span><span class="where">MioDottore</span></div></div>
-          <div class="tcard"><div class="tstars">★★★★★</div><p class="txt">Super competente e professionale, consigliatissimo.</p><div class="by"><div class="tw-av">GP</div><div><h4>Giovanni Portuese</h4><div class="role">Visita fisiatrica</div></div></div><div class="tw-src"><span class="vf"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 100 20 10 10 0 000-20zm-1.2 14.2l-4-4 1.4-1.4 2.6 2.6 5.6-5.6 1.4 1.4-7 7z"/></svg>Verificata</span><span class="where">MioDottore</span></div></div>
-          <div class="tcard"><div class="tstars">★★★★★</div><p class="txt">Il Dr. Russo è un professionista attento, gentile e disponibile. Ha risposto con chiarezza ed esaustività a tutti i miei quesiti. La visita si è svolta in un ambiente accogliente, elegante e riservato. Una location davvero bellissima.</p><div class="by"><div class="tw-av">GV</div><div><h4>Germana Vasta</h4><div class="role">Prima visita fisiatrica</div></div></div><div class="tw-src"><span class="vf"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 100 20 10 10 0 000-20zm-1.2 14.2l-4-4 1.4-1.4 2.6 2.6 5.6-5.6 1.4 1.4-7 7z"/></svg>Verificata</span><span class="where">MioDottore</span></div></div>
-          <div class="tcard" aria-hidden="true"><div class="tstars">★★★★★</div><p class="txt">Ho eseguito una visita fisiatrica presso il Dr. Russo e non posso che confermare una più che buona impressione. Ha saputo descrivere la mia problematica in modo estremamente chiaro e semplice, rendendo comprensibile ogni dettaglio del percorso terapeutico. Lo consiglio.</p><div class="by"><div class="tw-av">EC</div><div><h4>E. C.</h4><div class="role">Prima visita fisiatrica</div></div></div><div class="tw-src"><span class="vf"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 100 20 10 10 0 000-20zm-1.2 14.2l-4-4 1.4-1.4 2.6 2.6 5.6-5.6 1.4 1.4-7 7z"/></svg>Verificata</span><span class="where">MioDottore</span></div></div>
-          <div class="tcard" aria-hidden="true"><div class="tstars">★★★★★</div><p class="txt">Professionale ed esaustivo nelle spiegazioni. Puntuale. Pulizia studio eccellente.</p><div class="by"><div class="tw-av">R</div><div><h4>Rita</h4><div class="role">Ecografia muscolotendinea</div></div></div><div class="tw-src"><span class="vf"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 100 20 10 10 0 000-20zm-1.2 14.2l-4-4 1.4-1.4 2.6 2.6 5.6-5.6 1.4 1.4-7 7z"/></svg>Verificata</span><span class="where">MioDottore</span></div></div>
-          <div class="tcard" aria-hidden="true"><div class="tstars">★★★★★</div><p class="txt">Super competente e professionale, consigliatissimo.</p><div class="by"><div class="tw-av">GP</div><div><h4>Giovanni Portuese</h4><div class="role">Visita fisiatrica</div></div></div><div class="tw-src"><span class="vf"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 100 20 10 10 0 000-20zm-1.2 14.2l-4-4 1.4-1.4 2.6 2.6 5.6-5.6 1.4 1.4-7 7z"/></svg>Verificata</span><span class="where">MioDottore</span></div></div>
-          <div class="tcard" aria-hidden="true"><div class="tstars">★★★★★</div><p class="txt">Il Dr. Russo è un professionista attento, gentile e disponibile. Ha risposto con chiarezza ed esaustività a tutti i miei quesiti. La visita si è svolta in un ambiente accogliente, elegante e riservato. Una location davvero bellissima.</p><div class="by"><div class="tw-av">GV</div><div><h4>Germana Vasta</h4><div class="role">Prima visita fisiatrica</div></div></div><div class="tw-src"><span class="vf"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 100 20 10 10 0 000-20zm-1.2 14.2l-4-4 1.4-1.4 2.6 2.6 5.6-5.6 1.4 1.4-7 7z"/></svg>Verificata</span><span class="where">MioDottore</span></div></div>
+          <div class="tcard"><div class="tstars" role="img" aria-label="5 stelle su 5">★★★★★</div><p class="txt">Ho eseguito una visita fisiatrica presso il Dr. Russo e non posso che confermare una più che buona impressione. Ha saputo descrivere la mia problematica in modo estremamente chiaro e semplice, rendendo comprensibile ogni dettaglio del percorso terapeutico. Lo consiglio.</p><div class="by"><div class="tw-av">EC</div><div><h4>E. C.</h4><div class="role">Prima visita fisiatrica</div></div></div><div class="tw-src"><span class="vf"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 100 20 10 10 0 000-20zm-1.2 14.2l-4-4 1.4-1.4 2.6 2.6 5.6-5.6 1.4 1.4-7 7z"/></svg>Verificata</span><span class="where">MioDottore</span></div></div>
+          <div class="tcard"><div class="tstars" role="img" aria-label="5 stelle su 5">★★★★★</div><p class="txt">Professionale ed esaustivo nelle spiegazioni. Puntuale. Pulizia studio eccellente.</p><div class="by"><div class="tw-av">R</div><div><h4>Rita</h4><div class="role">Ecografia muscolotendinea</div></div></div><div class="tw-src"><span class="vf"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 100 20 10 10 0 000-20zm-1.2 14.2l-4-4 1.4-1.4 2.6 2.6 5.6-5.6 1.4 1.4-7 7z"/></svg>Verificata</span><span class="where">MioDottore</span></div></div>
+          <div class="tcard"><div class="tstars" role="img" aria-label="5 stelle su 5">★★★★★</div><p class="txt">Super competente e professionale, consigliatissimo.</p><div class="by"><div class="tw-av">GP</div><div><h4>Giovanni Portuese</h4><div class="role">Visita fisiatrica</div></div></div><div class="tw-src"><span class="vf"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 100 20 10 10 0 000-20zm-1.2 14.2l-4-4 1.4-1.4 2.6 2.6 5.6-5.6 1.4 1.4-7 7z"/></svg>Verificata</span><span class="where">MioDottore</span></div></div>
+          <div class="tcard"><div class="tstars" role="img" aria-label="5 stelle su 5">★★★★★</div><p class="txt">Il Dr. Russo è un professionista attento, gentile e disponibile. Ha risposto con chiarezza ed esaustività a tutti i miei quesiti. La visita si è svolta in un ambiente accogliente, elegante e riservato. Una location davvero bellissima.</p><div class="by"><div class="tw-av">GV</div><div><h4>Germana Vasta</h4><div class="role">Prima visita fisiatrica</div></div></div><div class="tw-src"><span class="vf"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 100 20 10 10 0 000-20zm-1.2 14.2l-4-4 1.4-1.4 2.6 2.6 5.6-5.6 1.4 1.4-7 7z"/></svg>Verificata</span><span class="where">MioDottore</span></div></div>
+          <div class="tcard" aria-hidden="true"><div class="tstars" role="img" aria-label="5 stelle su 5">★★★★★</div><p class="txt">Ho eseguito una visita fisiatrica presso il Dr. Russo e non posso che confermare una più che buona impressione. Ha saputo descrivere la mia problematica in modo estremamente chiaro e semplice, rendendo comprensibile ogni dettaglio del percorso terapeutico. Lo consiglio.</p><div class="by"><div class="tw-av">EC</div><div><h4>E. C.</h4><div class="role">Prima visita fisiatrica</div></div></div><div class="tw-src"><span class="vf"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 100 20 10 10 0 000-20zm-1.2 14.2l-4-4 1.4-1.4 2.6 2.6 5.6-5.6 1.4 1.4-7 7z"/></svg>Verificata</span><span class="where">MioDottore</span></div></div>
+          <div class="tcard" aria-hidden="true"><div class="tstars" role="img" aria-label="5 stelle su 5">★★★★★</div><p class="txt">Professionale ed esaustivo nelle spiegazioni. Puntuale. Pulizia studio eccellente.</p><div class="by"><div class="tw-av">R</div><div><h4>Rita</h4><div class="role">Ecografia muscolotendinea</div></div></div><div class="tw-src"><span class="vf"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 100 20 10 10 0 000-20zm-1.2 14.2l-4-4 1.4-1.4 2.6 2.6 5.6-5.6 1.4 1.4-7 7z"/></svg>Verificata</span><span class="where">MioDottore</span></div></div>
+          <div class="tcard" aria-hidden="true"><div class="tstars" role="img" aria-label="5 stelle su 5">★★★★★</div><p class="txt">Super competente e professionale, consigliatissimo.</p><div class="by"><div class="tw-av">GP</div><div><h4>Giovanni Portuese</h4><div class="role">Visita fisiatrica</div></div></div><div class="tw-src"><span class="vf"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 100 20 10 10 0 000-20zm-1.2 14.2l-4-4 1.4-1.4 2.6 2.6 5.6-5.6 1.4 1.4-7 7z"/></svg>Verificata</span><span class="where">MioDottore</span></div></div>
+          <div class="tcard" aria-hidden="true"><div class="tstars" role="img" aria-label="5 stelle su 5">★★★★★</div><p class="txt">Il Dr. Russo è un professionista attento, gentile e disponibile. Ha risposto con chiarezza ed esaustività a tutti i miei quesiti. La visita si è svolta in un ambiente accogliente, elegante e riservato. Una location davvero bellissima.</p><div class="by"><div class="tw-av">GV</div><div><h4>Germana Vasta</h4><div class="role">Prima visita fisiatrica</div></div></div><div class="tw-src"><span class="vf"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 100 20 10 10 0 000-20zm-1.2 14.2l-4-4 1.4-1.4 2.6 2.6 5.6-5.6 1.4 1.4-7 7z"/></svg>Verificata</span><span class="where">MioDottore</span></div></div>
         </div>
       </div>
       <div class="tw-col tw-col-md">
         <div class="tw-track" style="--dur:54s;">
-          <div class="tcard"><div class="tstars">★★★★★</div><p class="txt">Il dottor Russo è stata una bella sorpresa. Lavoro in sanità da anni e trovare un professionista molto preparato e attento è purtroppo una meteora rara. Sono uscita soddisfatta. CONSIGLIATISSIMO.</p><div class="by"><div class="tw-av">SF</div><div><h4>S. F.</h4><div class="role">Prima visita fisiatrica</div></div></div><div class="tw-src"><span class="vf"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 100 20 10 10 0 000-20zm-1.2 14.2l-4-4 1.4-1.4 2.6 2.6 5.6-5.6 1.4 1.4-7 7z"/></svg>Verificata</span><span class="where">MioDottore</span></div></div>
-          <div class="tcard"><div class="tstars">★★★★★</div><p class="txt">Esperienza davvero positiva con il dott. Antonino Russo, fisiatra. Seduta di dry needling molto efficace, spiegazioni chiare e grande professionalità. Ho avuto benefici già dopo la prima seduta. Consigliatissimo!</p><div class="by"><div class="tw-av">IM</div><div><h4>Izabela Mituca</h4><div class="role">Dry needling</div></div></div><div class="tw-src"><span class="vf"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 100 20 10 10 0 000-20zm-1.2 14.2l-4-4 1.4-1.4 2.6 2.6 5.6-5.6 1.4 1.4-7 7z"/></svg>Verificata</span><span class="where">Google</span></div></div>
-          <div class="tcard"><div class="tstars">★★★★★</div><p class="txt">Oltre a dimostrarsi estremamente preparato e bravo nel suo lavoro, si distingue per empatia e gentilezza. Consigliatissimo!</p><div class="by"><div class="tw-av">FS</div><div><h4>F. S.</h4><div class="role">Prima visita fisiatrica</div></div></div><div class="tw-src"><span class="vf"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 100 20 10 10 0 000-20zm-1.2 14.2l-4-4 1.4-1.4 2.6 2.6 5.6-5.6 1.4 1.4-7 7z"/></svg>Verificata</span><span class="where">MioDottore</span></div></div>
-          <div class="tcard"><div class="tstars">★★★★★</div><p class="txt">Gentilissimo, preparato e preciso! Lo consiglio vivamente.</p><div class="by"><div class="tw-av">BO</div><div><h4>B. O.</h4><div class="role">Ecografia muscolotendinea</div></div></div><div class="tw-src"><span class="vf"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 100 20 10 10 0 000-20zm-1.2 14.2l-4-4 1.4-1.4 2.6 2.6 5.6-5.6 1.4 1.4-7 7z"/></svg>Verificata</span><span class="where">MioDottore</span></div></div>
-          <div class="tcard" aria-hidden="true"><div class="tstars">★★★★★</div><p class="txt">Il dottor Russo è stata una bella sorpresa. Lavoro in sanità da anni e trovare un professionista molto preparato e attento è purtroppo una meteora rara. Sono uscita soddisfatta. CONSIGLIATISSIMO.</p><div class="by"><div class="tw-av">SF</div><div><h4>S. F.</h4><div class="role">Prima visita fisiatrica</div></div></div><div class="tw-src"><span class="vf"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 100 20 10 10 0 000-20zm-1.2 14.2l-4-4 1.4-1.4 2.6 2.6 5.6-5.6 1.4 1.4-7 7z"/></svg>Verificata</span><span class="where">MioDottore</span></div></div>
-          <div class="tcard" aria-hidden="true"><div class="tstars">★★★★★</div><p class="txt">Esperienza davvero positiva con il dott. Antonino Russo, fisiatra. Seduta di dry needling molto efficace, spiegazioni chiare e grande professionalità. Ho avuto benefici già dopo la prima seduta. Consigliatissimo!</p><div class="by"><div class="tw-av">IM</div><div><h4>Izabela Mituca</h4><div class="role">Dry needling</div></div></div><div class="tw-src"><span class="vf"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 100 20 10 10 0 000-20zm-1.2 14.2l-4-4 1.4-1.4 2.6 2.6 5.6-5.6 1.4 1.4-7 7z"/></svg>Verificata</span><span class="where">Google</span></div></div>
-          <div class="tcard" aria-hidden="true"><div class="tstars">★★★★★</div><p class="txt">Oltre a dimostrarsi estremamente preparato e bravo nel suo lavoro, si distingue per empatia e gentilezza. Consigliatissimo!</p><div class="by"><div class="tw-av">FS</div><div><h4>F. S.</h4><div class="role">Prima visita fisiatrica</div></div></div><div class="tw-src"><span class="vf"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 100 20 10 10 0 000-20zm-1.2 14.2l-4-4 1.4-1.4 2.6 2.6 5.6-5.6 1.4 1.4-7 7z"/></svg>Verificata</span><span class="where">MioDottore</span></div></div>
-          <div class="tcard" aria-hidden="true"><div class="tstars">★★★★★</div><p class="txt">Gentilissimo, preparato e preciso! Lo consiglio vivamente.</p><div class="by"><div class="tw-av">BO</div><div><h4>B. O.</h4><div class="role">Ecografia muscolotendinea</div></div></div><div class="tw-src"><span class="vf"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 100 20 10 10 0 000-20zm-1.2 14.2l-4-4 1.4-1.4 2.6 2.6 5.6-5.6 1.4 1.4-7 7z"/></svg>Verificata</span><span class="where">MioDottore</span></div></div>
+          <div class="tcard"><div class="tstars" role="img" aria-label="5 stelle su 5">★★★★★</div><p class="txt">Il dottor Russo è stata una bella sorpresa. Lavoro in sanità da anni e trovare un professionista molto preparato e attento è purtroppo una meteora rara. Sono uscita soddisfatta. CONSIGLIATISSIMO.</p><div class="by"><div class="tw-av">SF</div><div><h4>S. F.</h4><div class="role">Prima visita fisiatrica</div></div></div><div class="tw-src"><span class="vf"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 100 20 10 10 0 000-20zm-1.2 14.2l-4-4 1.4-1.4 2.6 2.6 5.6-5.6 1.4 1.4-7 7z"/></svg>Verificata</span><span class="where">MioDottore</span></div></div>
+          <div class="tcard"><div class="tstars" role="img" aria-label="5 stelle su 5">★★★★★</div><p class="txt">Esperienza davvero positiva con il dott. Antonino Russo, fisiatra. Seduta di dry needling molto efficace, spiegazioni chiare e grande professionalità. Ho avuto benefici già dopo la prima seduta. Consigliatissimo!</p><div class="by"><div class="tw-av">IM</div><div><h4>Izabela Mituca</h4><div class="role">Dry needling</div></div></div><div class="tw-src"><span class="vf"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 100 20 10 10 0 000-20zm-1.2 14.2l-4-4 1.4-1.4 2.6 2.6 5.6-5.6 1.4 1.4-7 7z"/></svg>Verificata</span><span class="where">Google</span></div></div>
+          <div class="tcard"><div class="tstars" role="img" aria-label="5 stelle su 5">★★★★★</div><p class="txt">Oltre a dimostrarsi estremamente preparato e bravo nel suo lavoro, si distingue per empatia e gentilezza. Consigliatissimo!</p><div class="by"><div class="tw-av">FS</div><div><h4>F. S.</h4><div class="role">Prima visita fisiatrica</div></div></div><div class="tw-src"><span class="vf"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 100 20 10 10 0 000-20zm-1.2 14.2l-4-4 1.4-1.4 2.6 2.6 5.6-5.6 1.4 1.4-7 7z"/></svg>Verificata</span><span class="where">MioDottore</span></div></div>
+          <div class="tcard"><div class="tstars" role="img" aria-label="5 stelle su 5">★★★★★</div><p class="txt">Gentilissimo, preparato e preciso! Lo consiglio vivamente.</p><div class="by"><div class="tw-av">BO</div><div><h4>B. O.</h4><div class="role">Ecografia muscolotendinea</div></div></div><div class="tw-src"><span class="vf"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 100 20 10 10 0 000-20zm-1.2 14.2l-4-4 1.4-1.4 2.6 2.6 5.6-5.6 1.4 1.4-7 7z"/></svg>Verificata</span><span class="where">MioDottore</span></div></div>
+          <div class="tcard" aria-hidden="true"><div class="tstars" role="img" aria-label="5 stelle su 5">★★★★★</div><p class="txt">Il dottor Russo è stata una bella sorpresa. Lavoro in sanità da anni e trovare un professionista molto preparato e attento è purtroppo una meteora rara. Sono uscita soddisfatta. CONSIGLIATISSIMO.</p><div class="by"><div class="tw-av">SF</div><div><h4>S. F.</h4><div class="role">Prima visita fisiatrica</div></div></div><div class="tw-src"><span class="vf"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 100 20 10 10 0 000-20zm-1.2 14.2l-4-4 1.4-1.4 2.6 2.6 5.6-5.6 1.4 1.4-7 7z"/></svg>Verificata</span><span class="where">MioDottore</span></div></div>
+          <div class="tcard" aria-hidden="true"><div class="tstars" role="img" aria-label="5 stelle su 5">★★★★★</div><p class="txt">Esperienza davvero positiva con il dott. Antonino Russo, fisiatra. Seduta di dry needling molto efficace, spiegazioni chiare e grande professionalità. Ho avuto benefici già dopo la prima seduta. Consigliatissimo!</p><div class="by"><div class="tw-av">IM</div><div><h4>Izabela Mituca</h4><div class="role">Dry needling</div></div></div><div class="tw-src"><span class="vf"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 100 20 10 10 0 000-20zm-1.2 14.2l-4-4 1.4-1.4 2.6 2.6 5.6-5.6 1.4 1.4-7 7z"/></svg>Verificata</span><span class="where">Google</span></div></div>
+          <div class="tcard" aria-hidden="true"><div class="tstars" role="img" aria-label="5 stelle su 5">★★★★★</div><p class="txt">Oltre a dimostrarsi estremamente preparato e bravo nel suo lavoro, si distingue per empatia e gentilezza. Consigliatissimo!</p><div class="by"><div class="tw-av">FS</div><div><h4>F. S.</h4><div class="role">Prima visita fisiatrica</div></div></div><div class="tw-src"><span class="vf"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 100 20 10 10 0 000-20zm-1.2 14.2l-4-4 1.4-1.4 2.6 2.6 5.6-5.6 1.4 1.4-7 7z"/></svg>Verificata</span><span class="where">MioDottore</span></div></div>
+          <div class="tcard" aria-hidden="true"><div class="tstars" role="img" aria-label="5 stelle su 5">★★★★★</div><p class="txt">Gentilissimo, preparato e preciso! Lo consiglio vivamente.</p><div class="by"><div class="tw-av">BO</div><div><h4>B. O.</h4><div class="role">Ecografia muscolotendinea</div></div></div><div class="tw-src"><span class="vf"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 100 20 10 10 0 000-20zm-1.2 14.2l-4-4 1.4-1.4 2.6 2.6 5.6-5.6 1.4 1.4-7 7z"/></svg>Verificata</span><span class="where">MioDottore</span></div></div>
         </div>
       </div>
       <div class="tw-col tw-col-lg">
         <div class="tw-track" style="--dur:50s;">
-          <div class="tcard"><div class="tstars">★★★★★</div><p class="txt">Ho trovato il dottor Russo molto accurato. La visita è stata accompagnata da un'ecografia e da spiegazioni dettagliate. Mi ha consigliato degli approfondimenti diagnostici prima di darmi la diagnosi definitiva. Molto pignolo e attento.</p><div class="by"><div class="tw-av">SM</div><div><h4>Santagati Marianna</h4><div class="role">Visita fisiatrica</div></div></div><div class="tw-src"><span class="vf"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 100 20 10 10 0 000-20zm-1.2 14.2l-4-4 1.4-1.4 2.6 2.6 5.6-5.6 1.4 1.4-7 7z"/></svg>Verificata</span><span class="where">MioDottore</span></div></div>
-          <div class="tcard"><div class="tstars">★★★★★</div><p class="txt">Mi sono rivolto al dottor Russo per un problema ai polpacci e dopo un'attenta visita è riuscito a risalire alla fonte del problema. Grazie anche all'aiuto del dott. Salpietro Matteo, che mi segue ad ogni seduta, stiamo ottenendo ottimi risultati.</p><div class="by"><div class="tw-av">AC</div><div><h4>Alessandro Cavallaro</h4><div class="role">Percorso terapeutico</div></div></div><div class="tw-src"><span class="vf"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 100 20 10 10 0 000-20zm-1.2 14.2l-4-4 1.4-1.4 2.6 2.6 5.6-5.6 1.4 1.4-7 7z"/></svg>Verificata</span><span class="where">Google</span></div></div>
-          <div class="tcard"><div class="tstars">★★★★★</div><p class="txt">Il dott. Russo si è dimostrato un professionista più che preparato, gentile, umile e professionale. Lo consiglio a chiunque necessiti un intervento fisiatrico, all'avanguardia e aggiornato.</p><div class="by"><div class="tw-av">AB</div><div><h4>Arturo Bonforte</h4><div class="role">Visita fisiatrica</div></div></div><div class="tw-src"><span class="vf"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 100 20 10 10 0 000-20zm-1.2 14.2l-4-4 1.4-1.4 2.6 2.6 5.6-5.6 1.4 1.4-7 7z"/></svg>Verificata</span><span class="where">Google</span></div></div>
-          <div class="tcard" aria-hidden="true"><div class="tstars">★★★★★</div><p class="txt">Ho trovato il dottor Russo molto accurato. La visita è stata accompagnata da un'ecografia e da spiegazioni dettagliate. Mi ha consigliato degli approfondimenti diagnostici prima di darmi la diagnosi definitiva. Molto pignolo e attento.</p><div class="by"><div class="tw-av">SM</div><div><h4>Santagati Marianna</h4><div class="role">Visita fisiatrica</div></div></div><div class="tw-src"><span class="vf"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 100 20 10 10 0 000-20zm-1.2 14.2l-4-4 1.4-1.4 2.6 2.6 5.6-5.6 1.4 1.4-7 7z"/></svg>Verificata</span><span class="where">MioDottore</span></div></div>
-          <div class="tcard" aria-hidden="true"><div class="tstars">★★★★★</div><p class="txt">Mi sono rivolto al dottor Russo per un problema ai polpacci e dopo un'attenta visita è riuscito a risalire alla fonte del problema. Grazie anche all'aiuto del dott. Salpietro Matteo, che mi segue ad ogni seduta, stiamo ottenendo ottimi risultati.</p><div class="by"><div class="tw-av">AC</div><div><h4>Alessandro Cavallaro</h4><div class="role">Percorso terapeutico</div></div></div><div class="tw-src"><span class="vf"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 100 20 10 10 0 000-20zm-1.2 14.2l-4-4 1.4-1.4 2.6 2.6 5.6-5.6 1.4 1.4-7 7z"/></svg>Verificata</span><span class="where">Google</span></div></div>
-          <div class="tcard" aria-hidden="true"><div class="tstars">★★★★★</div><p class="txt">Il dott. Russo si è dimostrato un professionista più che preparato, gentile, umile e professionale. Lo consiglio a chiunque necessiti un intervento fisiatrico, all'avanguardia e aggiornato.</p><div class="by"><div class="tw-av">AB</div><div><h4>Arturo Bonforte</h4><div class="role">Visita fisiatrica</div></div></div><div class="tw-src"><span class="vf"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 100 20 10 10 0 000-20zm-1.2 14.2l-4-4 1.4-1.4 2.6 2.6 5.6-5.6 1.4 1.4-7 7z"/></svg>Verificata</span><span class="where">Google</span></div></div>
+          <div class="tcard"><div class="tstars" role="img" aria-label="5 stelle su 5">★★★★★</div><p class="txt">Ho trovato il dottor Russo molto accurato. La visita è stata accompagnata da un'ecografia e da spiegazioni dettagliate. Mi ha consigliato degli approfondimenti diagnostici prima di darmi la diagnosi definitiva. Molto pignolo e attento.</p><div class="by"><div class="tw-av">SM</div><div><h4>Santagati Marianna</h4><div class="role">Visita fisiatrica</div></div></div><div class="tw-src"><span class="vf"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 100 20 10 10 0 000-20zm-1.2 14.2l-4-4 1.4-1.4 2.6 2.6 5.6-5.6 1.4 1.4-7 7z"/></svg>Verificata</span><span class="where">MioDottore</span></div></div>
+          <div class="tcard"><div class="tstars" role="img" aria-label="5 stelle su 5">★★★★★</div><p class="txt">Mi sono rivolto al dottor Russo per un problema ai polpacci e dopo un'attenta visita è riuscito a risalire alla fonte del problema. Grazie anche all'aiuto del dott. Salpietro Matteo, che mi segue ad ogni seduta, stiamo ottenendo ottimi risultati.</p><div class="by"><div class="tw-av">AC</div><div><h4>Alessandro Cavallaro</h4><div class="role">Percorso terapeutico</div></div></div><div class="tw-src"><span class="vf"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 100 20 10 10 0 000-20zm-1.2 14.2l-4-4 1.4-1.4 2.6 2.6 5.6-5.6 1.4 1.4-7 7z"/></svg>Verificata</span><span class="where">Google</span></div></div>
+          <div class="tcard"><div class="tstars" role="img" aria-label="5 stelle su 5">★★★★★</div><p class="txt">Il dott. Russo si è dimostrato un professionista più che preparato, gentile, umile e professionale. Lo consiglio a chiunque necessiti un intervento fisiatrico, all'avanguardia e aggiornato.</p><div class="by"><div class="tw-av">AB</div><div><h4>Arturo Bonforte</h4><div class="role">Visita fisiatrica</div></div></div><div class="tw-src"><span class="vf"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 100 20 10 10 0 000-20zm-1.2 14.2l-4-4 1.4-1.4 2.6 2.6 5.6-5.6 1.4 1.4-7 7z"/></svg>Verificata</span><span class="where">Google</span></div></div>
+          <div class="tcard" aria-hidden="true"><div class="tstars" role="img" aria-label="5 stelle su 5">★★★★★</div><p class="txt">Ho trovato il dottor Russo molto accurato. La visita è stata accompagnata da un'ecografia e da spiegazioni dettagliate. Mi ha consigliato degli approfondimenti diagnostici prima di darmi la diagnosi definitiva. Molto pignolo e attento.</p><div class="by"><div class="tw-av">SM</div><div><h4>Santagati Marianna</h4><div class="role">Visita fisiatrica</div></div></div><div class="tw-src"><span class="vf"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 100 20 10 10 0 000-20zm-1.2 14.2l-4-4 1.4-1.4 2.6 2.6 5.6-5.6 1.4 1.4-7 7z"/></svg>Verificata</span><span class="where">MioDottore</span></div></div>
+          <div class="tcard" aria-hidden="true"><div class="tstars" role="img" aria-label="5 stelle su 5">★★★★★</div><p class="txt">Mi sono rivolto al dottor Russo per un problema ai polpacci e dopo un'attenta visita è riuscito a risalire alla fonte del problema. Grazie anche all'aiuto del dott. Salpietro Matteo, che mi segue ad ogni seduta, stiamo ottenendo ottimi risultati.</p><div class="by"><div class="tw-av">AC</div><div><h4>Alessandro Cavallaro</h4><div class="role">Percorso terapeutico</div></div></div><div class="tw-src"><span class="vf"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 100 20 10 10 0 000-20zm-1.2 14.2l-4-4 1.4-1.4 2.6 2.6 5.6-5.6 1.4 1.4-7 7z"/></svg>Verificata</span><span class="where">Google</span></div></div>
+          <div class="tcard" aria-hidden="true"><div class="tstars" role="img" aria-label="5 stelle su 5">★★★★★</div><p class="txt">Il dott. Russo si è dimostrato un professionista più che preparato, gentile, umile e professionale. Lo consiglio a chiunque necessiti un intervento fisiatrico, all'avanguardia e aggiornato.</p><div class="by"><div class="tw-av">AB</div><div><h4>Arturo Bonforte</h4><div class="role">Visita fisiatrica</div></div></div><div class="tw-src"><span class="vf"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 100 20 10 10 0 000-20zm-1.2 14.2l-4-4 1.4-1.4 2.6 2.6 5.6-5.6 1.4 1.4-7 7z"/></svg>Verificata</span><span class="where">Google</span></div></div>
         </div>
       </div>
     </div>
     <div class="tw-foot" data-reveal>
-      <div class="tw-rating"><b>5,0</b><span class="st">★★★★★</span><span>oltre 170 recensioni — 105 su MioDottore, 69 su Google</span></div>
+      <div class="tw-rating"><b>5,0</b><span class="st" role="img" aria-label="5 stelle su 5">★★★★★</span><span>oltre 170 recensioni — 105 su MioDottore, 69 su Google</span></div>
       <div class="tw-srcbtns">
         <a class="btn btn-ghost" href="https://www.miodottore.it/antonino-russo-4/fisiatra/catania#profile-reviews" target="_blank" rel="noopener">Recensioni su MioDottore <span class="arr">→</span></a>
         <a class="btn btn-ghost" href="https://g.co/kgs/RT4qEMv" target="_blank" rel="noopener">Recensioni su Google <span class="arr">→</span></a>
@@ -1744,9 +1886,24 @@ html, body { overflow-x: hidden; max-width: 100%; }
     <div class="nav-cta">
       <a class="nav-back" href="#/home" data-view="home"><span class="a">←</span> Studio</a>
       <a class="btn btn-accent" href="#prenota">Prenota <span class="arr">→</span></a>
+      <button class="nav-hamburger" id="motionBurger" aria-label="Menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
     </div>
   </div>
 </nav>
+
+<!-- MOBILE MENU MOTION -->
+<div class="nav-mobile-panel" id="motionMobileMenu" aria-hidden="true">
+  <a href="#programmi" class="mobile-link">Programmi</a>
+  <a href="#return" class="mobile-link">Ritorno al Movimento</a>
+  <a href="#metodo" class="mobile-link">Metodo</a>
+  <a href="#coach" class="mobile-link">Coach</a>
+  <div class="nav-mobile-cta">
+    <a class="btn btn-accent btn-lg" href="#prenota">Prenota <span class="arr">→</span></a>
+    <a class="btn btn-ghost btn-lg" href="#/home" data-view="home">← Torna allo Studio</a>
+  </div>
+</div>
 
 <!-- HERO -->
 <header class="hero" id="top">
@@ -1918,7 +2075,7 @@ html, body { overflow-x: hidden; max-width: 100%; }
   <div class="wrap testi-grid">
     <div data-reveal="left"><div class="px" data-parallax="0.05"><div class="ph ph-portrait"><div class="ph-tag"><span class="ph-ico">◳</span>Foto · paziente</div></div></div></div>
     <div data-reveal="right">
-      <div class="stars">★★★★★</div>
+      <div class="stars" role="img" aria-label="5 stelle su 5">★★★★★</div>
       <p class="quote"><span class="mk">«</span>Mi ero rivolta al dottor Russo per una cervicalgia cronica. La priorità era tornare ad allenarmi: così è nato un percorso serio e personalizzato. Mi sono sentita seguita, compresa, guidata.<span class="mk">»</span></p>
       <div class="by">
         <div class="ph av"><div class="ph-tag" style="font-size:0.58rem;">◳</div></div>
@@ -2039,6 +2196,40 @@ html, body { overflow-x: hidden; max-width: 100%; }
   });
 
   // close on Escape
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && burger.classList.contains('open')) closeMenu();
+  });
+})();
+
+// Motion hamburger
+(function () {
+  var burger = document.getElementById('motionBurger');
+  var panel  = document.getElementById('motionMobileMenu');
+  if (!burger || !panel) return;
+
+  function openMenu() {
+    burger.classList.add('open');
+    burger.setAttribute('aria-expanded', 'true');
+    panel.classList.add('open');
+    panel.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeMenu() {
+    burger.classList.remove('open');
+    burger.setAttribute('aria-expanded', 'false');
+    panel.classList.remove('open');
+    panel.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+  }
+
+  burger.addEventListener('click', function () {
+    burger.classList.contains('open') ? closeMenu() : openMenu();
+  });
+
+  panel.querySelectorAll('a').forEach(function (a) {
+    a.addEventListener('click', closeMenu);
+  });
+
   document.addEventListener('keydown', function (e) {
     if (e.key === 'Escape' && burger.classList.contains('open')) closeMenu();
   });
@@ -2225,8 +2416,8 @@ html, body { overflow-x: hidden; max-width: 100%; }
       armReveals(currentView);
       scrollToTarget(target);
       if (!fromHash) { try { history.replaceState(null, '', '#/' + view); } catch (e) { location.hash = '#/' + view; } }
-      var mm = document.getElementById('mobileMenu'); if (mm) { mm.classList.remove('open'); mm.setAttribute('aria-hidden', 'true'); }
-      var burger = document.getElementById('navBurger'); if (burger) { burger.classList.remove('open'); burger.setAttribute('aria-expanded', 'false'); }
+      ['mobileMenu','motionMobileMenu'].forEach(function(id){ var mm=document.getElementById(id); if(mm){mm.classList.remove('open');mm.setAttribute('aria-hidden','true');} });
+      ['navBurger','motionBurger'].forEach(function(id){ var b=document.getElementById(id); if(b){b.classList.remove('open');b.setAttribute('aria-expanded','false');} });
       document.body.style.overflow = '';
       effects();
       requestAnimationFrame(effects);
