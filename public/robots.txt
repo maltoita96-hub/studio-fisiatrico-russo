@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://studio-fisiatrico-russo.vercel.app/sitemap-index.xml

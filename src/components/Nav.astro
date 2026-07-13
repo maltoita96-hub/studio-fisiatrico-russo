@@ -1,0 +1,75 @@
+---
+interface Props {
+  theme?: 'studio' | 'night';
+}
+const { theme = 'studio' } = Astro.props;
+const night = theme === 'night';
+
+const links = night
+  ? [
+      { href: '#programmi', label: 'Programmi' },
+      { href: '#metodo', label: 'Metodo' },
+      { href: '#coach', label: 'Coach' },
+    ]
+  : [
+      { href: '#percorso', label: 'Percorso' },
+      { href: '#trattamenti', label: 'Cosa trattiamo' },
+      { href: '#medico', label: 'Il medico' },
+      { href: '/motion/', label: 'Motion', wipe: true },
+      { href: '#dove', label: 'Dove siamo' },
+    ];
+---
+<nav class="nav" data-nav data-theme={night ? 'night' : undefined}>
+  <div class="wrap flex items-center justify-between gap-6 h-[68px]">
+    {
+      night ? (
+        <a class="flex items-center gap-2.5 font-display font-semibold text-[1.08rem] text-night-ink whitespace-nowrap" href="/" data-wipe>
+          Studio Fisiatrico Russo
+          <span class="font-motion font-black text-[0.6rem] tracking-[0.14em] uppercase text-aqua-ink bg-aqua px-2 py-1 rounded shrink-0">Motion</span>
+        </a>
+      ) : (
+        <a class="flex items-baseline gap-2 font-display font-semibold text-[1.14rem] text-ink whitespace-nowrap" href="/">
+          Studio Fisiatrico Russo
+          <span class="w-2 h-2 rounded-full bg-accent shrink-0 translate-y-[-2px]" aria-hidden="true"></span>
+        </a>
+      )
+    }
+    <div class:list={['nav-links flex items-center gap-7 text-[0.92rem] font-medium', night ? 'text-night-ink/80' : 'text-muted']}>
+      {links.map((l) => (
+        <a href={l.href} data-wipe={'wipe' in l && l.wipe ? '' : undefined}>{l.label}</a>
+      ))}
+    </div>
+    <div class="flex items-center gap-3.5">
+      <a
+        href="tel:+393421904804"
+        class:list={[
+          'hidden min-[1100px]:inline-flex items-center gap-2 text-[0.92rem] font-bold',
+          night ? 'text-night-ink' : 'text-ink',
+        ]}
+      >
+        <span class:list={[night ? 'text-aqua' : 'text-accent-ink']} aria-hidden="true">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        </span>
+        342 190 4804
+      </a>
+      <a class:list={['btn max-[899px]:hidden', night ? 'btn-aqua' : 'btn-accent']} href="#prenota">
+        Prenota <span class="arr" aria-hidden="true">→</span>
+      </a>
+      <button class="burger" id="burger" aria-label="Menu" aria-expanded="false" aria-controls="mobileMenu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<div class="mobile-panel" id="mobileMenu" aria-hidden="true" data-theme={night ? 'night' : undefined}>
+  {links.map((l) => (
+    <a href={l.href} class="m-link" data-wipe={'wipe' in l && l.wipe ? '' : undefined}>{l.label}</a>
+  ))}
+  <a href="#faq" class="m-link">FAQ</a>
+  <div class="mt-8 flex flex-col gap-3">
+    <a class:list={['btn btn-lg', night ? 'btn-aqua' : 'btn-accent']} href="#prenota">Prenota la visita <span class="arr" aria-hidden="true">→</span></a>
+    <a class:list={['btn btn-lg', night ? 'btn-ghost-night' : 'btn-outline']} href="tel:+393421904804">Chiama: 342 190 4804</a>
+    {night && <a class="btn btn-lg btn-ghost-night" href="/" data-wipe>← Torna allo Studio</a>}
+  </div>
+</div>

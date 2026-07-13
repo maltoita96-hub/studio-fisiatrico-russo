@@ -1,0 +1,58 @@
+---
+import Icon from '../Icon.astro';
+const meta = [
+  { t: 'Guida clinica', d: 'ogni programma dialoga con la parte medica dello Studio' },
+  { t: 'In sicurezza', d: 'si avanza quando il corpo è pronto, non a calendario' },
+  { t: 'Su misura', d: 'si parte da una valutazione, non da schede standard' },
+];
+const items = ['Forza', 'Ritorno al movimento', 'Controllo del gesto', 'Prevenzione ricadute', 'Mobilità', 'Movimento quotidiano'];
+---
+<header class="relative overflow-clip" id="top">
+  <div class="absolute inset-0 pointer-events-none" aria-hidden="true" style="background: radial-gradient(ellipse 70% 60% at 88% -10%, rgba(44,224,198,0.15), transparent 62%);"></div>
+  <div class="wrap relative z-[1] grid gap-[clamp(2rem,5vw,4.5rem)] lg:grid-cols-[1.1fr_0.9fr] items-center pt-[clamp(3.5rem,9vw,7rem)] pb-[clamp(3rem,7vw,5.5rem)]">
+    <div>
+      <span class="eyebrow" data-reveal>Motion · l’esercizio terapeutico dello Studio Russo</span>
+      <h1 class="mt-5 font-motion font-black uppercase leading-[0.95] tracking-[-0.025em] text-[clamp(2.1rem,5.5vw,5.4rem)]" data-reveal data-delay="80">
+        Muoverti di nuovo.<br /><b class="text-aqua">Senza paura di rifarti male.</b>
+      </h1>
+      <p class="mt-6 text-[1.14rem] max-w-[42ch] text-[color:var(--night-muted)]" data-reveal data-delay="160">
+        Il dolore è passato, ma il corpo non si fida ancora. Motion ricostruisce forza e sicurezza,
+        sotto la stessa guida clinica dello Studio, finché muoverti torna naturale.
+      </p>
+      <div class="mt-8 flex flex-wrap gap-3.5" data-reveal data-delay="240">
+        <a class="btn btn-aqua btn-lg" href="#prenota">Inizia il percorso <span class="arr" aria-hidden="true">→</span></a>
+        <a class="btn btn-ghost-night btn-lg" href="#programmi">Vedi i programmi</a>
+      </div>
+      <p class="mt-5 flex items-center gap-2 text-[0.94rem] font-semibold" data-reveal data-delay="300">
+        <span class="text-aqua"><Icon name="whatsapp" size={16} /></span>
+        Dubbi? <a class="underline underline-offset-4 decoration-[color:var(--color-aqua)] hover:text-aqua" href="https://wa.me/393421904804?text=Ciao%2C%20vorrei%20informazioni%20sul%20percorso%20Motion." target="_blank" rel="noopener">Scrivici su WhatsApp</a>: ti rispondiamo entro un giorno lavorativo.
+      </p>
+    </div>
+    <div class="grid gap-4" data-reveal data-delay="200" data-stagger="90">
+      {meta.map((m) => (
+        <div class="border border-[color:var(--night-line)] bg-night-surface rounded-[var(--radius-md)] px-6 py-5" data-reveal>
+          <p class="font-motion font-black uppercase tracking-[0.04em] text-[1.05rem] text-night-ink">{m.t}</p>
+          <p class="mt-1 text-[0.92rem] text-[color:var(--night-muted)]">{m.d}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+  <div class="marquee border-y border-[color:var(--night-line)] bg-night-surface py-4 overflow-hidden" aria-hidden="true">
+    <div class="track flex items-center whitespace-nowrap w-max">
+      {[...items, ...items].map((x) => (
+        <>
+          <span class="sep w-2 h-2 rotate-45 bg-aqua shrink-0"></span>
+          <span class="px-8 font-motion font-bold uppercase tracking-[0.03em] text-[1rem] text-[color:var(--night-muted)]">{x}</span>
+        </>
+      ))}
+    </div>
+  </div>
+</header>
+
+<style>
+  .track { animation: mscroll 30s linear infinite; }
+  @keyframes mscroll { to { transform: translateX(-50%); } }
+  @media (prefers-reduced-motion: reduce) {
+    .track { animation: none; }
+  }
+</style>

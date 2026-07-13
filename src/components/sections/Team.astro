@@ -1,0 +1,46 @@
+---
+import { Image } from 'astro:assets';
+import ritratto from '../../assets/dott-russo.jpg';
+---
+<section class="section" id="team">
+  <div class="wrap">
+    <div class="flex flex-wrap items-end justify-between gap-6 mb-10">
+      <div>
+        <span class="eyebrow" data-reveal>Le persone</span>
+        <h2 class="h-display mt-3" data-reveal data-delay="80">Un solo team: clinica e movimento.</h2>
+      </div>
+      <p class="max-w-[36ch] text-muted" data-reveal data-delay="160">
+        Chi ti diagnostica e chi ti allena lavorano sullo stesso percorso. Non ti passano di mano: ti seguono.
+      </p>
+    </div>
+    <div class="grid grid-cols-2 gap-5 max-w-[620px]" data-stagger="110">
+      <article data-reveal>
+        <Image
+          src={ritratto}
+          alt="Il Dott. Antonino Russo"
+          widths={[320, 480]}
+          sizes="(min-width: 640px) 300px, 45vw"
+          class="w-full aspect-[4/5] object-cover object-top rounded-[var(--radius-md)] border border-line"
+          loading="lazy"
+        />
+        <h3 class="font-display text-[1.1rem] font-semibold mt-4">Dott. Antonino Russo</h3>
+        <p class="text-[0.85rem] text-muted">Fisiatra · Direttore clinico</p>
+        <span class="inline-block mt-2 text-[0.68rem] font-bold tracking-[0.1em] uppercase text-accent-ink">Clinica</span>
+      </article>
+      <article data-reveal>
+        <!-- TODO: foto reale del Dott. Salpietro (chiederla al cliente) -->
+        <div class="w-full aspect-[4/5] rounded-[var(--radius-md)] border border-line bg-sand grid place-items-center relative overflow-hidden" role="img" aria-label="Ritratto del Dott. Matteo Salpietro in arrivo">
+          <svg class="absolute inset-0 w-full h-full opacity-[0.55]" viewBox="0 0 400 500" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M200 150a58 58 0 1 0 0 116 58 58 0 0 0 0-116Z" fill="none" stroke="#0F7E6E" stroke-width="2.5" />
+            <path d="M96 420c10-72 52-108 104-108s94 36 104 108" fill="none" stroke="#0F7E6E" stroke-width="2.5" stroke-linecap="round" />
+            <path d="M0 60h400M0 440h400" stroke="#DFD8CB" stroke-width="1.5" />
+          </svg>
+          <span class="relative font-display font-semibold text-accent-ink text-[0.85rem] tracking-[0.08em] uppercase">Foto in arrivo</span>
+        </div>
+        <h3 class="font-display text-[1.1rem] font-semibold mt-4">Dott. Matteo Salpietro</h3>
+        <p class="text-[0.85rem] text-muted">Chinesiologo · Esercizio terapeutico</p>
+        <span class="inline-block mt-2 text-[0.68rem] font-bold tracking-[0.1em] uppercase text-accent-ink">Motion</span>
+      </article>
+    </div>
+  </div>
+</section>

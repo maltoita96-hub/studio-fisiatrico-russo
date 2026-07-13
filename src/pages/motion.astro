@@ -1,0 +1,29 @@
+---
+import Base from '../layouts/Base.astro';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+import StickyBar from '../components/StickyBar.astro';
+import Wipe from '../components/Wipe.astro';
+import MHero from '../components/sections/MHero.astro';
+import MPrograms from '../components/sections/MPrograms.astro';
+import MPhases from '../components/sections/MPhases.astro';
+import MCoach from '../components/sections/MCoach.astro';
+import Book from '../components/sections/Book.astro';
+
+const title = 'Motion · L’esercizio terapeutico dello Studio Fisiatrico Russo';
+const description =
+  'Motion è il percorso di esercizio terapeutico dello Studio Fisiatrico Russo: forza, controllo del movimento e prevenzione delle ricadute, sotto guida clinica, a Misterbianco (Catania).';
+---
+<Base title={title} description={description} theme="night">
+  <Nav theme="night" />
+  <main id="main">
+    <MHero />
+    <MPrograms />
+    <MPhases />
+    <MCoach />
+    <Book variant="motion" />
+  </main>
+  <Footer theme="night" />
+  <StickyBar />
+  <Wipe />
+</Base>

@@ -1,0 +1,82 @@
+---
+const fasi = [
+  {
+    n: '01',
+    t: 'Diagnosi funzionale',
+    d: 'Visita, ecografia in studio e test del movimento nello stesso appuntamento. Esci sapendo cos’hai, con un piano scritto.',
+    li: ['Anamnesi e visita clinica', 'Ecografia muscoloscheletrica', 'Test funzionali'],
+  },
+  {
+    n: '02',
+    t: 'Terapia mirata',
+    d: 'Si lavora sulla causa, non solo sul sintomo: le terapie si scelgono in base alla diagnosi, non al contrario.',
+    li: ['Terapia infiltrativa ecoguidata', 'Onde d’urto', 'Esercizio terapeutico progressivo'],
+  },
+  {
+    n: '03',
+    t: 'Ritorno al movimento',
+    d: 'Quando il dolore è sotto controllo, il percorso continua in sala Motion: forza e controllo, con criteri oggettivi.',
+    li: ['Criteri misurabili di rientro', 'Ricondizionamento', 'Prevenzione delle ricadute'],
+  },
+];
+---
+<section class="section bg-surface border-y border-line" id="percorso">
+  <div class="wrap">
+    <div class="flex flex-wrap items-end justify-between gap-6 mb-11">
+      <div>
+        <span class="eyebrow" data-reveal>Il percorso</span>
+        <h2 class="h-display mt-3" data-reveal data-delay="80">Tre fasi, una direzione.</h2>
+      </div>
+      <span class="text-[0.7rem] font-bold tracking-[0.14em] uppercase text-muted flex items-center gap-2" data-reveal data-delay="160">
+        <span class="text-accent" aria-hidden="true">§</span> Diagnosi → terapia → movimento
+      </span>
+    </div>
+    <div class="steps relative grid gap-5 md:grid-cols-3" data-steps data-stagger="140">
+      <div class="m-line" aria-hidden="true"></div>
+      {fasi.map((f) => (
+        <article class="relative z-[1] bg-paper border border-line rounded-md p-7 transition-transform duration-300 hover:-translate-y-1 hover:shadow-[var(--shadow-ink)]" data-reveal>
+          <div class="badge w-11 h-11 rounded-full bg-ink text-paper grid place-items-center font-display font-bold mb-4 transition-colors">{f.n.slice(1)}</div>
+          <span class="text-[0.72rem] font-bold tracking-[0.16em] uppercase text-muted">Fase {f.n}</span>
+          <h3 class="font-display text-[1.45rem] font-semibold mt-1.5 mb-2.5">{f.t}</h3>
+          <p class="text-[0.97rem] text-muted">{f.d}</p>
+          <ul class="list-none p-0 mt-4 flex flex-col gap-2">
+            {f.li.map((x) => (
+              <li class="flex items-center gap-2.5 text-[0.9rem]">
+                <span class="text-accent-ink font-bold" aria-hidden="true">✓</span>{x}
+              </li>
+            ))}
+          </ul>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .m-line {
+    position: absolute;
+    top: 40px;
+    left: 12%;
+    right: 12%;
+    height: 2px;
+    background: var(--color-line);
+    z-index: 0;
+  }
+  .m-line::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--color-accent);
+    transform: scaleX(0);
+    transform-origin: 0 50%;
+    transition: transform 1100ms cubic-bezier(0.6, 0, 0.2, 1);
+  }
+  :global(.steps.drawn) .m-line::after { transform: scaleX(1); }
+  article:hover .badge { background: var(--color-accent); }
+  @media (max-width: 767px) {
+    .m-line { display: none; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .m-line::after { transition: none; }
+  }
+</style>

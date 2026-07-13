@@ -1,0 +1,74 @@
+---
+/* Transizione MOTION fra le pagine: doppio wipe + lettere in stagger.
+   La pagina di arrivo parte coperta (classe wipe-cover messa in <head>). */
+---
+<div id="wipe" aria-hidden="true">
+  <div class="w-layer w-aqua"></div>
+  <div class="w-layer w-night"></div>
+  <div class="w-mask">
+    <div class="w-word"><span>M</span><span>O</span><span class="t">T</span><span class="t">I</span><span class="t">O</span><span class="t">N</span></div>
+  </div>
+</div>
+
+<script>
+  const wipe = document.getElementById('wipe');
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const EASE = 'cubic-bezier(.76,0,.24,1)';
+  const parts = () => ({
+    aqua: wipe.querySelector('.w-aqua'),
+    night: wipe.querySelector('.w-night'),
+    letters: [...wipe.querySelectorAll('.w-word span')],
+  });
+
+  // USCITA: copri, poi naviga
+  document.addEventListener('click', (e) => {
+    const a = e.target instanceof Element && e.target.closest('a[data-wipe]');
+    if (!a || !wipe) return;
+    if (reduce || !('animate' in Element.prototype)) return; // navigazione normale
+    if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+    const href = a.getAttribute('href');
+    if (!href) return;
+    e.preventDefault();
+    const { aqua, night, letters } = parts();
+    wipe.style.visibility = 'visible';
+    wipe.style.pointerEvents = 'auto';
+    aqua.animate([{ transform: 'translateY(103%)' }, { transform: 'translateY(0)' }], { duration: 560, easing: EASE, fill: 'forwards' });
+    night.animate([{ transform: 'translateY(103%)' }, { transform: 'translateY(0)' }], { duration: 560, delay: 90, easing: EASE, fill: 'forwards' });
+    letters.forEach((L, i) =>
+      L.animate([{ transform: 'translateY(115%)', opacity: 0 }, { transform: 'none', opacity: 1 }], {
+        duration: 460, delay: 300 + i * 40, easing: 'cubic-bezier(.2,.7,.2,1)', fill: 'forwards',
+      })
+    );
+    setTimeout(() => {
+      try { sessionStorage.setItem('wipe', '1'); } catch {}
+      location.href = href;
+    }, 980);
+  });
+
+  // ARRIVO: scopri da coperto
+  (function uncover() {
+    let flagged = false;
+    try { flagged = !!sessionStorage.getItem('wipe'); sessionStorage.removeItem('wipe'); } catch {}
+    const html = document.documentElement;
+    const done = () => html.classList.remove('wipe-cover');
+    if (!html.classList.contains('wipe-cover')) return;
+    setTimeout(done, 1600); // failsafe: mai lasciare la pagina nascosta
+    if (!flagged || reduce || !wipe || !('animate' in Element.prototype)) { done(); return; }
+    const { aqua, night, letters } = parts();
+    wipe.style.visibility = 'visible';
+    aqua.style.transform = 'translateY(0)';
+    night.style.transform = 'translateY(0)';
+    letters.forEach((L) => { L.style.transform = 'none'; L.style.opacity = '1'; });
+    requestAnimationFrame(() => {
+      done(); // il contenuto compare sotto copertura piena
+      letters.forEach((L, i) =>
+        L.animate([{ transform: 'none', opacity: 1 }, { transform: 'translateY(-60%)', opacity: 0 }], {
+          duration: 300, delay: i * 24, easing: 'cubic-bezier(.4,0,1,1)', fill: 'forwards',
+        })
+      );
+      night.animate([{ transform: 'translateY(0)' }, { transform: 'translateY(-103%)' }], { duration: 560, delay: 170, easing: EASE, fill: 'forwards' });
+      const last = aqua.animate([{ transform: 'translateY(0)' }, { transform: 'translateY(-103%)' }], { duration: 560, delay: 255, easing: EASE, fill: 'forwards' });
+      last.onfinish = () => { wipe.style.visibility = 'hidden'; wipe.style.pointerEvents = 'none'; };
+    });
+  })();
+</script>

@@ -1,0 +1,63 @@
+---
+const fasi = [
+  { n: '01', t: 'Valutazione', d: 'Test di forza, movimento e mobilità. Definiamo da dove parti e dove vuoi arrivare, in concreto.' },
+  { n: '02', t: 'Ricostruzione', d: 'Forza e controllo, in progressione. Si rimette in piedi la struttura, mattone su mattone.' },
+  { n: '03', t: 'Carico pieno', d: 'Il gesto che ti serve nella vita reale, portato a intensità reale. Si prova qui quello che poi farai fuori.' },
+  { n: '04', t: 'Autonomia', d: 'Cammini da solo: sai cosa fare e cosa evitare. Ci siamo se serve, ma non dipendi da noi.' },
+];
+---
+<section class="section bg-night-surface border-y border-[color:var(--night-line)]" id="metodo">
+  <div class="wrap">
+    <div class="flex flex-wrap items-end justify-between gap-7 mb-11">
+      <div>
+        <span class="eyebrow" data-reveal>Il metodo</span>
+        <h2 class="mt-3.5 font-motion font-black uppercase leading-[0.98] tracking-[-0.02em] text-[clamp(2rem,4.4vw,3.2rem)]" data-reveal data-delay="80">
+          Quattro fasi,<br /><b class="text-aqua">zero scorciatoie.</b>
+        </h2>
+      </div>
+      <p class="max-w-[32ch] text-[1.02rem] text-[color:var(--night-muted)]" data-reveal data-delay="160">
+        Ogni fase ha un punto d’uscita: si passa alla successiva solo superandolo. Mai a sensazione, mai di fretta.
+      </p>
+    </div>
+    <div class="phases relative grid sm:grid-cols-2 lg:grid-cols-4 gap-6" data-steps data-stagger="120">
+      <div class="pline" aria-hidden="true"></div>
+      {fasi.map((f) => (
+        <div class="relative z-[1] group" data-reveal>
+          <div class="w-[54px] h-[54px] rounded-full bg-night-elev border-2 border-[color:var(--night-line)] text-aqua grid place-items-center font-motion font-black text-[1.05rem] mb-5 transition-all duration-300 group-hover:bg-aqua group-hover:text-aqua-ink group-hover:border-[color:var(--color-aqua)] group-hover:-translate-y-1">
+            {f.n}
+          </div>
+          <span class="text-[0.72rem] font-bold tracking-[0.16em] uppercase text-[color:var(--night-muted)]">Fase {f.n}</span>
+          <h3 class="font-display font-semibold text-[1.3rem] mt-1.5 mb-2">{f.t}</h3>
+          <p class="text-[0.94rem] text-[color:var(--night-muted)] max-w-[30ch]">{f.d}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .pline {
+    position: absolute;
+    top: 26px;
+    left: 27px;
+    right: calc(25% - 43.5px);
+    height: 2px;
+    background: var(--night-line);
+    z-index: 0;
+    display: none;
+  }
+  @media (min-width: 1024px) { .pline { display: block; } }
+  .pline::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, var(--color-aqua), #7CF2E2);
+    transform: scaleX(0);
+    transform-origin: 0 50%;
+    transition: transform 1200ms cubic-bezier(0.6, 0, 0.2, 1);
+  }
+  :global(.phases.drawn) .pline::after { transform: scaleX(1); }
+  @media (prefers-reduced-motion: reduce) {
+    .pline::after { transition: none; }
+  }
+</style>

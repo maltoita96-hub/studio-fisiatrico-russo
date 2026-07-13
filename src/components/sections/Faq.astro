@@ -1,0 +1,44 @@
+---
+/* <details> nativi: zero JS, accessibili. Le domande sono obiezioni reali alla prenotazione. */
+export const faq = [
+  {
+    q: 'Serve l’impegnativa per la prima visita?',
+    a: 'No. La visita è privata: prenoti direttamente, senza ricetta del medico di base. Esci con una diagnosi e un piano di trattamento.',
+  },
+  {
+    q: 'Cosa devo portare alla prima visita?',
+    a: 'Gli esami che hai già fatto (risonanze, radiografie, ecografie), l’elenco dei farmaci che assumi e l’eventuale documentazione di interventi. Se non hai nulla va bene lo stesso: l’ecografia si fa in studio.',
+  },
+  {
+    q: 'In quanto tempo si recupera?',
+    a: 'Dipende dal problema, e te lo diciamo con chiarezza alla prima visita. Il percorso è monitorato con test funzionali: sai sempre a che punto sei e cosa manca.',
+  },
+  {
+    q: 'Che differenza c’è tra Studio e Motion?',
+    a: 'Lo Studio è la parte clinica: diagnosi e trattamento del dolore o dell’infortunio. Motion è la parte attiva: l’esercizio terapeutico che ti rimette in forza e riduce il rischio di ricadute. Sono lo stesso percorso, con la stessa guida.',
+  },
+  {
+    q: 'Devo essere sportivo per venire da voi?',
+    a: 'No. La maggior parte delle persone che seguiamo convive con dolori che durano da tempo (schiena, collo, spalla, ginocchio) e vuole tornare a muoversi senza pensarci. Lo sport non c’entra.',
+  },
+];
+---
+<section class="section bg-surface border-t border-line" id="faq">
+  <div class="wrap grid gap-[clamp(2rem,5vw,4rem)] lg:grid-cols-[0.7fr_1.3fr] items-start">
+    <div>
+      <span class="kicker-alt" data-reveal>Domande frequenti</span>
+      <h2 class="h-display mt-3" data-reveal data-delay="80">Prima di prenotare.</h2>
+      <p class="mt-4 text-muted max-w-[28ch]" data-reveal data-delay="160">
+        Non trovi la tua domanda? <a class="underline underline-offset-4 decoration-accent text-accent-ink" href="#prenota">Scrivici</a>: rispondiamo entro un giorno lavorativo.
+      </p>
+    </div>
+    <div class="border-t border-line" data-stagger="70">
+      {faq.map((f) => (
+        <details class="faq-item" data-reveal>
+          <summary>{f.q}</summary>
+          <p class="faq-a">{f.a}</p>
+        </details>
+      ))}
+    </div>
+  </div>
+</section>

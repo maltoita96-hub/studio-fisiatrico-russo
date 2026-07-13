@@ -1,0 +1,54 @@
+---
+const programmi = [
+  {
+    k: '01 / Forza e protezione',
+    t: 'Forza e protezione',
+    d: 'Costruire la forza che mancava: quella che, spesso, era la causa del problema. Un corpo più forte è un corpo che si fa male di meno.',
+    li: ['Valutazione di forza e squilibri', 'Carichi progressivi, tarati su di te', 'Lavoro sui punti deboli che innescano il dolore'],
+  },
+  {
+    k: '02 / Ritorno al movimento',
+    t: 'Ritorno al movimento',
+    d: 'Tornare a fare le cose di sempre senza pensarci: le scale, la spesa, sollevare i figli, la corsa della domenica.',
+    li: ['Test funzionali, non sensazioni', 'Criteri chiari per ogni passo avanti', 'Ripresa graduale del gesto che ti serve'],
+  },
+  {
+    k: '03 / Movimento e controllo',
+    t: 'Movimento e controllo',
+    d: 'Rieducare il modo in cui ti muovi. Spesso il dolore torna perché il corpo ha imparato un gesto sbagliato: qui si disimpara.',
+    li: ['Analisi di come ti muovi', 'Mobilità e controllo del movimento', 'Tecnica dei gesti di base, fatti bene'],
+  },
+];
+---
+<section class="section" id="programmi">
+  <div class="wrap">
+    <div class="flex flex-wrap items-end justify-between gap-7 mb-11">
+      <div>
+        <span class="eyebrow" data-reveal>I programmi</span>
+        <h2 class="mt-3.5 font-motion font-black uppercase leading-[0.98] tracking-[-0.02em] text-[clamp(2rem,4.4vw,3.2rem)]" data-reveal data-delay="80">
+          Allenare il corpo<br /><b class="text-aqua">a fidarsi di nuovo.</b>
+        </h2>
+      </div>
+      <p class="max-w-[32ch] text-[1.02rem] text-[color:var(--night-muted)]" data-reveal data-delay="160">
+        Tre percorsi, una regola sola: si avanza quando i segnali lo confermano, mai forzando.
+      </p>
+    </div>
+    <div class="grid md:grid-cols-3 gap-5" data-stagger="120">
+      {programmi.map((p) => (
+        <article class="bg-night-surface border border-[color:var(--night-line)] rounded-[var(--radius-md)] p-8 transition-all duration-300 hover:-translate-y-1 hover:border-[color:var(--color-aqua)] hover:bg-night-elev" data-reveal>
+          <span class="font-motion font-bold uppercase tracking-[0.06em] text-[0.74rem] text-aqua">{p.k}</span>
+          <h3 class="font-display font-semibold text-[1.6rem] mt-3 mb-2.5">{p.t}</h3>
+          <p class="text-[0.97rem] text-[color:var(--night-muted)]">{p.d}</p>
+          <ul class="list-none p-0 mt-5 flex flex-col gap-2.5">
+            {p.li.map((x) => (
+              <li class="flex items-center gap-3 text-[0.92rem]">
+                <span class="w-[7px] h-[7px] rotate-45 bg-aqua shrink-0" aria-hidden="true"></span>
+                {x}
+              </li>
+            ))}
+          </ul>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>

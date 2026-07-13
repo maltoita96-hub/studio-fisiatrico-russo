@@ -1,0 +1,44 @@
+---
+import { Image } from 'astro:assets';
+import sala from '../../assets/sala-motion.jpg';
+---
+<section class="section bg-surface border-y border-line" id="medico">
+  <div class="wrap grid gap-[clamp(2rem,6vw,5.5rem)] lg:grid-cols-[0.9fr_1.1fr] items-center">
+    <figure class="m-0" data-reveal="left">
+      <Image
+        src={sala}
+        alt="Il Dott. Russo guida una valutazione pratica sul lettino, nella sala Motion"
+        widths={[480, 753]}
+        sizes="(min-width: 1024px) 480px, 92vw"
+        class="w-full aspect-[4/5] object-cover object-top rounded-[var(--radius-md)]"
+        loading="lazy"
+      />
+      <figcaption class="mt-3 px-1 text-[0.84rem] text-muted">Valutazione pratica in sala Motion.</figcaption>
+    </figure>
+    <div data-reveal="right">
+      <span class="kicker-alt">Il medico</span>
+      <h2 class="h-display mt-3">Dott. Antonino Russo.</h2>
+      <p class="mt-4 text-[clamp(1.02rem,1.4vw,1.14rem)] leading-[1.7] text-muted max-w-[54ch]">
+        Medico chirurgo, specialista in Medicina Fisica e Riabilitativa. Dal 2019 segue nello studio di
+        Misterbianco chi convive con un dolore muscoloscheletrico: negli ultimi anni oltre 150 persone,
+        in studio e online, con percorsi basati su linee guida ed evidenza scientifica. È formatore in
+        master di posturologia e in corsi per professionisti del movimento.
+      </p>
+      <ul class="list-none p-0 mt-6 flex flex-col gap-2.5">
+        {
+          [
+            'Specializzazione in Medicina Fisica e Riabilitativa',
+            'Ecografia muscoloscheletrica, terapia infiltrativa ecoguidata, dry needling',
+            'Certificazione VT3 Invictus: allenamento e gestione del dolore cronico',
+            'Formatore in master di posturologia e corsi per professionisti',
+          ].map((x) => (
+            <li class="flex items-start gap-3.5 text-[0.95rem] leading-[1.5]">
+              <span class="mt-[9px] w-5 h-[1.5px] bg-accent shrink-0" aria-hidden="true"></span>
+              {x}
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </div>
+</section>
