@@ -1,0 +1,36 @@
+---
+/* Anima Motion in casa Studio: la voce Archivo entra qui e vive piena su /motion/. */
+const pilastri = [
+  { k: 'Forza', d: 'La forza che mancava, costruita in progressione: un corpo più forte si fa male di meno.' },
+  { k: 'Movimento', d: 'Tornare alle cose di sempre: le scale, la spesa, una corsa, senza pensarci.' },
+  { k: 'Controllo', d: 'Rieducare il gesto, perché il dolore non rientri dalla porta di servizio.' },
+];
+---
+<section class="section relative overflow-clip bg-night text-night-ink" id="motion" data-theme="night">
+  <div class="absolute inset-0 pointer-events-none" aria-hidden="true" style="background: radial-gradient(ellipse 60% 50% at 82% 0%, rgba(44,224,198,0.13), transparent 70%);"></div>
+  <div class="wrap relative z-[1]">
+    <div class="grid gap-10 lg:grid-cols-[1.1fr_0.9fr] lg:items-end mb-10">
+      <div>
+        <span class="eyebrow" data-reveal>Motion · l’esercizio terapeutico</span>
+        <h2 class="mt-4 font-motion font-black uppercase leading-[0.96] tracking-[-0.02em] text-[clamp(2.1rem,4.4vw,3.6rem)]" data-reveal data-delay="80">
+          Dal lettino<br /><b class="text-aqua">alla sala pesi.</b>
+        </h2>
+      </div>
+      <p class="text-[1.06rem] max-w-[38ch] text-[color:var(--night-muted)]" data-reveal data-delay="160">
+        Quando la terapia ha fatto il suo, serve la parte attiva: stessa guida clinica, in palestra invece
+        che in ambulatorio.
+      </p>
+    </div>
+    <div class="grid md:grid-cols-3 gap-x-8 gap-y-6 border-t border-[color:var(--night-line)] pt-8" data-stagger="120">
+      {pilastri.map((p, i) => (
+        <div data-reveal>
+          <span class="font-motion font-bold uppercase tracking-[0.06em] text-[0.76rem] text-aqua">0{i + 1} / {p.k}</span>
+          <p class="mt-2.5 text-[0.95rem] text-[color:var(--night-muted)] max-w-[34ch]">{p.d}</p>
+        </div>
+      ))}
+    </div>
+    <div class="mt-10" data-reveal>
+      <a class="btn btn-aqua btn-lg" href="/motion/" data-wipe>Scopri Motion <span class="arr" aria-hidden="true">→</span></a>
+    </div>
+  </div>
+</section>

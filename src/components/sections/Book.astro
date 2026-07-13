@@ -1,0 +1,106 @@
+---
+import Icon from '../Icon.astro';
+interface Props {
+  variant?: 'studio' | 'motion';
+}
+const { variant = 'studio' } = Astro.props;
+const motion = variant === 'motion';
+---
+<section
+  class:list={['section', motion ? 'bg-night text-night-ink relative overflow-clip' : 'bg-ink text-paper']}
+  id="prenota"
+  data-theme="night"
+>
+  {motion && (
+    <div class="absolute inset-0 pointer-events-none" aria-hidden="true" style="background: radial-gradient(ellipse 55% 70% at 12% 80%, rgba(44,224,198,0.12), transparent 65%);"></div>
+  )}
+  <div class="wrap relative z-[1] grid gap-[clamp(2.5rem,5vw,4rem)] lg:grid-cols-[1.05fr_0.95fr] items-center">
+    <div data-reveal="left">
+      {
+        motion ? (
+          <h2 class="font-motion font-black uppercase leading-[0.98] tracking-[-0.02em] text-[clamp(2rem,4.4vw,3.2rem)]">
+            Pronto a rimetterti<br /><b class="text-aqua">in moto?</b>
+          </h2>
+        ) : (
+          <h2 class="h-display text-paper">Prenota la prima visita.</h2>
+        )
+      }
+      <p class="mt-4 text-[1.06rem] opacity-80 max-w-[42ch]">
+        {
+          motion
+            ? 'Prenota una valutazione Motion: misuriamo da dove parti e costruiamo il percorso, un passo alla volta.'
+            : 'Scrivici su WhatsApp, chiama, o lasciaci nome e numero: ti richiamiamo noi per fissare l’appuntamento.'
+        }
+      </p>
+      <ul class="list-none p-0 mt-6 flex flex-wrap gap-x-6 gap-y-3">
+        {
+          (motion
+            ? ['Sempre sotto guida clinica', 'Si parte dalla tua situazione reale']
+            : ['Senza impegnativa', 'Ecografia in sede', 'Risposta entro un giorno lavorativo']
+          ).map((x) => (
+            <li class="flex items-center gap-2.5 text-[0.92rem] font-semibold">
+              <span class:list={['grid place-items-center w-[24px] h-[24px] rounded-full shrink-0', motion ? 'bg-aqua text-aqua-ink' : 'bg-accent text-white']}>
+                <Icon name="check" size={13} />
+              </span>
+              {x}
+            </li>
+          ))
+        }
+      </ul>
+      <div class="mt-8 flex flex-wrap gap-3">
+        <a
+          class="btn btn-wa btn-lg"
+          href={`https://wa.me/393421904804?text=${encodeURIComponent(motion ? 'Ciao, vorrei informazioni sul percorso Motion.' : 'Ciao, vorrei prenotare una visita fisiatrica presso lo Studio Russo.')}`}
+          target="_blank"
+          rel="noopener"
+        >
+          <Icon name="whatsapp" size={19} /> Scrivici su WhatsApp
+        </a>
+        <a class="btn btn-ghost-night btn-lg" href="tel:+393421904804">Chiama</a>
+        {!motion && (
+          <a class="btn btn-ghost-night btn-lg" href="https://www.miodottore.it/antonino-russo-4/fisiatra/catania" target="_blank" rel="noopener">MioDottore →</a>
+        )}
+      </div>
+    </div>
+
+    <form
+      class:list={['rounded-[var(--radius-md)] p-[clamp(1.5rem,3vw,2rem)]', motion ? 'bg-night-elev border border-[color:var(--night-line)]' : 'bg-white/[0.05] border border-white/15']}
+      data-wa-form={variant}
+      novalidate
+      data-reveal="right"
+    >
+      <p class="font-display font-semibold text-[1.35rem] leading-snug">
+        {motion ? 'Prenota la valutazione' : 'Ti richiamiamo noi.'}
+      </p>
+      <p class="mt-1.5 text-[0.9rem] opacity-70">Bastano nome e numero: nessun dato sulla salute.</p>
+      <div class="grid sm:grid-cols-2 gap-3.5 mt-5">
+        <div class="field">
+          <label for={`${variant}-nome`}>Nome</label>
+          <input class="input" id={`${variant}-nome`} name="nome" autocomplete="name" placeholder="Il tuo nome" required />
+        </div>
+        <div class="field">
+          <label for={`${variant}-tel`}>Telefono</label>
+          <input class="input" id={`${variant}-tel`} name="tel" type="tel" autocomplete="tel" placeholder="+39 ···" required />
+        </div>
+      </div>
+      <div class="field mt-3.5">
+        <label for={`${variant}-orario`}>Quando preferisci essere richiamato</label>
+        <select class="input" id={`${variant}-orario`} name="orario" style="color-scheme: dark;">
+          <option>Indifferente</option>
+          <option>Mattina (9–13)</option>
+          <option>Pomeriggio (13–18)</option>
+        </select>
+      </div>
+      <button class="btn btn-wa btn-lg w-full mt-5" type="submit">
+        <Icon name="whatsapp" size={19} /> Invia con WhatsApp
+      </button>
+      <label class="consent">
+        <input type="checkbox" name="consenso" required />
+        <span>Acconsento al trattamento dei dati per essere ricontattato. Leggi l’<a href="/privacy/">informativa privacy</a>.</span>
+      </label>
+      <p class="mt-3.5 text-[0.78rem] opacity-60 text-center">
+        Premendo Invia si apre la tua app WhatsApp col messaggio già scritto: nessun dato viene salvato su questo sito.
+      </p>
+    </form>
+  </div>
+</section>

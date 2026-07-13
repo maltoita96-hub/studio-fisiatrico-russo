@@ -2,3 +2,10 @@
 *.env
 .DS_Store
 Thumbs.db
+node_modules/
+dist/
+.astro/
+.impeccable/live/
+
+.vercel
+.env*

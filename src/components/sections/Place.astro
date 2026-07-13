@@ -1,0 +1,59 @@
+---
+import Icon from '../Icon.astro';
+/* Niente iframe di Google Maps: zero cookie di terze parti, zero banner.
+   Le indicazioni si aprono direttamente nell'app/sito Maps dell'utente. */
+---
+<section class="section" id="dove">
+  <div class="wrap grid gap-[clamp(2rem,5vw,4rem)] lg:grid-cols-[1fr_1fr] items-start">
+    <div>
+      <span class="kicker-alt" data-reveal>Dove siamo</span>
+      <h2 class="h-display mt-3" data-reveal data-delay="80">Siamo a Misterbianco.</h2>
+      <p class="mt-4 text-muted max-w-[44ch]" data-reveal data-delay="160">
+        Lo studio riceve <strong class="text-ink">su appuntamento</strong>. Alla conferma ti mandiamo
+        l’indirizzo esatto e le indicazioni per arrivare.
+      </p>
+      <!-- TODO cliente: indirizzo civico completo (per pagina, schema.org e Google Business Profile) -->
+      <div class="mt-7 flex flex-col gap-5" data-reveal data-delay="220">
+        <div class="flex items-start gap-3.5">
+          <span class="text-accent-ink mt-1"><Icon name="mappin" size={19} /></span>
+          <div>
+            <p class="font-semibold">Misterbianco (Catania)</p>
+            <a
+              class="text-[0.92rem] text-accent-ink underline underline-offset-4 decoration-accent"
+              href="https://www.google.com/maps/search/?api=1&query=Studio+Fisiatrico+Russo+Misterbianco"
+              target="_blank"
+              rel="noopener"
+            >Indicazioni con Google Maps →</a>
+          </div>
+        </div>
+        <div class="flex items-start gap-3.5">
+          <span class="text-accent-ink mt-1"><Icon name="mail" size={19} /></span>
+          <a class="hover:text-accent-ink transition" href="mailto:antoninorusso994@gmail.com">antoninorusso994@gmail.com</a>
+        </div>
+        <div class="flex items-start gap-3.5">
+          <span class="text-accent-ink mt-1"><Icon name="instagram" size={19} /></span>
+          <a class="hover:text-accent-ink transition" href="https://www.instagram.com/toni__russo" target="_blank" rel="noopener">@toni__russo</a>
+        </div>
+      </div>
+    </div>
+    <div class="bg-ink text-paper rounded-[var(--radius-lg)] p-[clamp(1.5rem,3.5vw,2.5rem)]" data-reveal="right" data-theme="night">
+      <span class="text-[0.72rem] font-bold tracking-[0.16em] uppercase text-aqua">Telefono e WhatsApp</span>
+      <a class="block font-display font-semibold text-[clamp(1.7rem,3.2vw,2.3rem)] leading-tight mt-2 hover:text-aqua transition" href="tel:+393421904804">
+        +39 342 190 4804
+      </a>
+      <p class="mt-3 text-[0.92rem] opacity-70 max-w-[38ch]">
+        Se non rispondiamo siamo in visita: scrivici su WhatsApp e ti richiamiamo appena possibile.
+      </p>
+      <div class="mt-6 flex flex-wrap gap-3">
+        <a class="btn btn-wa" href="https://wa.me/393421904804?text=Ciao%2C%20vorrei%20prenotare%20una%20visita%20fisiatrica%20presso%20lo%20Studio%20Russo." target="_blank" rel="noopener">
+          <Icon name="whatsapp" size={17} /> Scrivici su WhatsApp
+        </a>
+        <a class="btn btn-ghost-night" href="tel:+393421904804">Chiama ora</a>
+      </div>
+      <p class="mt-6 pt-5 border-t border-white/15 text-[0.85rem] opacity-70">
+        Preferisci prenotare online? Trovi il calendario su
+        <a class="underline underline-offset-2 text-aqua" href="https://www.miodottore.it/antonino-russo-4/fisiatra/catania" target="_blank" rel="noopener">MioDottore</a>.
+      </p>
+    </div>
+  </div>
+</section>

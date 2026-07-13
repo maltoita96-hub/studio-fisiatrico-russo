@@ -1,0 +1,93 @@
+---
+/* Filo del percorso (Home, ≥1240px): curva SVG in pixel reali,
+   disegno e cursore = funzione deterministica dello scroll. */
+const nodes = [
+  { href: '#top', label: 'Inizio' },
+  { href: '#trattamenti', label: 'Cosa trattiamo' },
+  { href: '#percorso', label: 'Il percorso' },
+  { href: '#medico', label: 'Il medico' },
+  { href: '#motion', label: 'Motion' },
+  { href: '#dove', label: 'Dove siamo' },
+  { href: '#faq', label: 'FAQ' },
+  { href: '#prenota', label: 'Prenota' },
+];
+---
+<nav class="thread" id="thread" aria-label="Percorso della pagina">
+  <svg aria-hidden="true">
+    <defs>
+      <linearGradient id="threadGrad" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#8B6B3D"></stop>
+        <stop offset="1" stop-color="#6B4F28"></stop>
+      </linearGradient>
+    </defs>
+    <path class="t-base" d=""></path>
+    <path class="t-draw" d=""></path>
+  </svg>
+  <div class="t-bead" aria-hidden="true"></div>
+  {nodes.map((n) => (
+    <a href={n.href} data-node data-label={n.label} aria-label={n.label}><span></span></a>
+  ))}
+</nav>
+
+<script>
+  const thread = document.getElementById('thread');
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let state = null;
+
+  function layout() {
+    if (!thread || !thread.offsetWidth) { state = null; return; }
+    const svg = thread.querySelector('svg');
+    const base = thread.querySelector('.t-base');
+    const draw = thread.querySelector('.t-draw');
+    const w = thread.clientWidth, h = thread.clientHeight;
+    const cx = w / 2, amp = cx - 7, segs = 4, top = 5, span = h - 10;
+    let d = `M ${cx} ${top}`;
+    for (let i = 1; i <= segs; i++) {
+      const y0 = top + (span * (i - 1)) / segs, y1 = top + (span * i) / segs, dir = i % 2 ? 1 : -1;
+      d += ` C ${cx + amp * dir} ${(y0 + (y1 - y0) * 0.38).toFixed(1)}, ${cx + amp * dir} ${(y0 + (y1 - y0) * 0.62).toFixed(1)}, ${cx} ${y1.toFixed(1)}`;
+    }
+    svg.setAttribute('viewBox', `0 0 ${w} ${h}`);
+    base.setAttribute('d', d);
+    draw.setAttribute('d', d);
+    const L = draw.getTotalLength();
+    draw.style.strokeDasharray = String(L);
+    const doc = document.documentElement;
+    const max = doc.scrollHeight - doc.clientHeight;
+    const links = [...thread.querySelectorAll('a[data-node]')];
+    links.forEach((a) => {
+      const el = document.getElementById(a.getAttribute('href').slice(1));
+      const f = el && max > 0 ? Math.min(1, Math.max(0, (el.offsetTop - 74) / max)) : 0;
+      const q = draw.getPointAtLength(f * L);
+      a.style.left = q.x + 'px';
+      a.style.top = q.y + 'px';
+      a.dataset.f = String(f);
+    });
+    state = { draw, L, bead: thread.querySelector('.t-bead'), links };
+    if (reduce) draw.style.strokeDashoffset = '0';
+  }
+
+  function frame() {
+    if (!state) return;
+    const doc = document.documentElement;
+    const max = doc.scrollHeight - doc.clientHeight;
+    const p = max > 0 ? window.scrollY / max : 0;
+    if (!reduce) {
+      state.draw.style.strokeDashoffset = String(state.L * (1 - p));
+      const q = state.draw.getPointAtLength(p * state.L);
+      state.bead.style.left = q.x + 'px';
+      state.bead.style.top = q.y + 'px';
+    }
+    let ai = -1;
+    state.links.forEach((a, i) => { if (p >= parseFloat(a.dataset.f) - 0.02) ai = i; });
+    state.links.forEach((a, i) => a.classList.toggle('active', i === ai));
+  }
+
+  let tick = false;
+  addEventListener('scroll', () => {
+    if (!tick) { tick = true; requestAnimationFrame(() => { frame(); tick = false; }); }
+  }, { passive: true });
+  addEventListener('resize', () => { layout(); frame(); }, { passive: true });
+  addEventListener('load', () => { layout(); frame(); });
+  layout();
+  frame();
+</script>

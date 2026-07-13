@@ -1,0 +1,101 @@
+---
+import Base from '../layouts/Base.astro';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+import Thread from '../components/Thread.astro';
+import StickyBar from '../components/StickyBar.astro';
+import Wipe from '../components/Wipe.astro';
+import Hero from '../components/sections/Hero.astro';
+import Treatments from '../components/sections/Treatments.astro';
+import Method from '../components/sections/Method.astro';
+import Doctor from '../components/sections/Doctor.astro';
+import MotionTeaser from '../components/sections/MotionTeaser.astro';
+import Team from '../components/sections/Team.astro';
+import Reviews from '../components/sections/Reviews.astro';
+import Place from '../components/sections/Place.astro';
+import Faq, { faq } from '../components/sections/Faq.astro';
+import Book from '../components/sections/Book.astro';
+import ritratto from '../assets/dott-russo.jpg';
+
+const title = 'Studio Fisiatrico Russo · Fisiatra a Misterbianco (Catania)';
+const description =
+  'Visita fisiatrica con ecografia in sede, terapia infiltrativa ecoguidata, onde d’urto ed esercizio terapeutico Motion. Studio Fisiatrico Russo del Dott. Antonino Russo, Misterbianco (Catania).';
+
+const SITE = Astro.site?.href.replace(/\/$/, '') ?? '';
+const schema = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'Physician',
+      '@id': `${SITE}/#studio`,
+      name: 'Studio Fisiatrico Russo',
+      description:
+        'Studio di fisiatria e riabilitazione: visita fisiatrica, ecografia muscoloscheletrica, terapia infiltrativa ecoguidata, onde d’urto ed esercizio terapeutico.',
+      url: `${SITE}/`,
+      image: new URL(ritratto.src, Astro.site).href,
+      telephone: '+393421904804',
+      email: 'antoninorusso994@gmail.com',
+      medicalSpecialty: 'Musculoskeletal',
+      address: {
+        '@type': 'PostalAddress',
+        addressLocality: 'Misterbianco',
+        addressRegion: 'CT',
+        addressCountry: 'IT',
+      },
+      founder: {
+        '@type': 'Person',
+        name: 'Antonino Russo',
+        honorificPrefix: 'Dott.',
+        jobTitle: 'Medico chirurgo, specialista in Medicina Fisica e Riabilitativa',
+      },
+      sameAs: [
+        'https://www.instagram.com/toni__russo',
+        'https://www.miodottore.it/antonino-russo-4/fisiatra/catania',
+      ],
+      availableService: [
+        { '@type': 'MedicalProcedure', name: 'Visita fisiatrica' },
+        { '@type': 'MedicalProcedure', name: 'Ecografia muscoloscheletrica' },
+        { '@type': 'MedicalProcedure', name: 'Terapia infiltrativa ecoguidata' },
+        { '@type': 'MedicalProcedure', name: 'Onde d’urto' },
+        { '@type': 'MedicalProcedure', name: 'Riabilitazione post-chirurgica' },
+      ],
+    },
+    {
+      '@type': 'WebSite',
+      '@id': `${SITE}/#website`,
+      url: `${SITE}/`,
+      name: 'Studio Fisiatrico Russo',
+      inLanguage: 'it',
+      publisher: { '@id': `${SITE}/#studio` },
+    },
+    {
+      '@type': 'FAQPage',
+      '@id': `${SITE}/#faq`,
+      mainEntity: faq.map((f) => ({
+        '@type': 'Question',
+        name: f.q,
+        acceptedAnswer: { '@type': 'Answer', text: f.a },
+      })),
+    },
+  ],
+};
+---
+<Base title={title} description={description} schema={schema}>
+  <Nav />
+  <main id="main">
+    <Hero />
+    <Treatments />
+    <Method />
+    <Doctor />
+    <MotionTeaser />
+    <Team />
+    <Reviews />
+    <Place />
+    <Faq />
+    <Book />
+  </main>
+  <Footer />
+  <Thread />
+  <StickyBar />
+  <Wipe />
+</Base>
