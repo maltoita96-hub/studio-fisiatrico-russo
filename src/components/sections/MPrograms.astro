@@ -36,12 +36,12 @@ const programmi = [
     <div class="grid md:grid-cols-3 gap-5" data-stagger="120">
       {programmi.map((p) => (
         <article class="bg-night-surface border border-[color:var(--night-line)] rounded-[var(--radius-md)] p-8 transition-all duration-300 hover:-translate-y-1 hover:border-[color:var(--color-aqua)] hover:bg-night-elev" data-reveal>
-          <span class="font-motion font-bold uppercase tracking-[0.06em] text-[0.74rem] text-aqua">{p.k}</span>
+          <span class="font-motion font-bold uppercase tracking-[0.06em] text-label text-aqua">{p.k}</span>
           <h3 class="font-display font-semibold text-[1.6rem] mt-3 mb-2.5">{p.t}</h3>
-          <p class="text-[0.97rem] text-[color:var(--night-muted)]">{p.d}</p>
+          <p class="text-body-sm text-[color:var(--night-muted)]">{p.d}</p>
           <ul class="list-none p-0 mt-5 flex flex-col gap-2.5">
             {p.li.map((x) => (
-              <li class="flex items-center gap-3 text-[0.92rem]">
+              <li class="flex items-center gap-3 text-body-sm">
                 <span class="w-[7px] h-[7px] rotate-45 bg-aqua shrink-0" aria-hidden="true"></span>
                 {x}
               </li>

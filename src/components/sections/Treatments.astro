@@ -5,43 +5,41 @@ import Icon from '../Icon.astro';
    onde d'urto) sono già nelle checklist di Method qui accanto, ripeterle
    in una sezione a parte era pura ridondanza (4 zone, non 6+6 voci piatte). */
 const aree = [
-  { t: 'Colonna', d: 'Lombalgia (mal di schiena basso), cervicalgia, sciatalgia, ernia del disco, stenosi, colpo di frusta, cefalea di origine cervicale.' },
-  { t: 'Spalla e gomito', d: 'Tendinopatia della cuffia dei rotatori, calcificazioni, spalla rigida, epicondilite (gomito del tennista).' },
-  { t: 'Anca e ginocchio', d: 'Coxartrosi e gonartrosi (artrosi di anca e ginocchio), tendinopatia rotulea, borsiti, esiti di trauma e chirurgia.' },
-  { t: 'Piede, caviglia e sport', d: 'Fascite plantare, distorsioni, infortuni muscolari e altri traumi sportivi.' },
+  { n: '01', t: 'Colonna', d: 'Lombalgia (mal di schiena basso), cervicalgia, sciatalgia, ernia del disco, stenosi, colpo di frusta, cefalea cervicale.' },
+  { n: '02', t: 'Spalla e gomito', d: 'Tendinopatia della cuffia dei rotatori, calcificazioni, spalla rigida, epicondilite (gomito del tennista).' },
+  { n: '03', t: 'Anca e ginocchio', d: 'Coxartrosi e gonartrosi (artrosi di anca e ginocchio), tendinopatia rotulea, borsiti, esiti di trauma e chirurgia.' },
+  { n: '04', t: 'Piede, caviglia e sport', d: 'Fascite plantare, distorsioni, infortuni muscolari e altri traumi sportivi.' },
 ];
 ---
 <section class="section" id="trattamenti">
   <div class="wrap">
-    <div class="flex flex-wrap items-end justify-between gap-6 mb-11">
+    <div class="grid gap-6 lg:grid-cols-[1.15fr_0.85fr] items-end mb-14">
       <div>
         <span class="eyebrow" data-reveal>Cosa trattiamo</span>
         <h2 class="h-display mt-3 max-w-[18ch]" data-reveal data-delay="80">Il dolore ha tante origini. Partiamo da dove fa male.</h2>
       </div>
-      <p class="max-w-[34ch] text-muted" data-reveal data-delay="160">
-        Le zone di cui ci occupiamo più spesso, sempre a partire da una valutazione: nessuna terapia “a catalogo”.
+      <p class="max-w-[38ch] text-muted" data-reveal data-delay="160">
+        Le zone che trattiamo più spesso, sempre a partire da una valutazione: nessuna terapia a catalogo.
       </p>
     </div>
-    <div class="grid sm:grid-cols-2 gap-x-12" data-stagger="70">
+    <div class="grid gap-x-8 gap-y-10 sm:grid-cols-2 xl:grid-cols-4 items-start" data-stagger="70">
       {aree.map((a) => (
-        <div class="border-t border-line py-6 flex flex-col gap-1.5 transition-colors hover:border-t-accent" data-reveal>
-          <h3 class="font-display text-[1.3rem] font-semibold">{a.t}</h3>
-          <p class="text-[0.93rem] text-muted">{a.d}</p>
+        <div class="border-t border-line pt-5 transition-colors hover:border-t-accent" data-reveal>
+          <span class="font-display text-label font-semibold text-accent-ink" aria-hidden="true">{a.n}</span>
+          <h3 class="font-display text-[1.15rem] font-semibold mt-1.5">{a.t}</h3>
+          <p class="mt-1.5 text-body-sm leading-relaxed text-muted">{a.d}</p>
         </div>
       ))}
     </div>
-    <p class="mt-8 text-[0.95rem] text-muted max-w-[60ch]" data-reveal>
-      Ci occupiamo anche di riabilitazione post-chirurgica e, a distanza, di consulenza online e nutrizionale.
-    </p>
-    <p class="mt-3 flex flex-wrap items-center gap-2 text-[0.95rem] font-semibold" data-reveal>
-      Non trovi il tuo problema?
+    <p class="mt-12 flex flex-wrap items-center gap-x-2 gap-y-1 text-body-sm text-muted max-w-[64ch]" data-reveal>
+      Ci occupiamo anche di riabilitazione post-chirurgica, consulenza online e nutrizionale. Il tuo caso non è qui?
       <a
-        class="inline-flex items-center gap-1.5 text-accent-ink underline underline-offset-4 decoration-accent"
+        class="inline-flex items-center gap-1.5 font-semibold text-accent-ink underline underline-offset-4 decoration-accent"
         href="https://wa.me/393421904804?text=Ciao%2C%20avrei%20una%20domanda%20sul%20mio%20problema%3A%20"
         target="_blank"
         rel="noopener"
       >
-        <Icon name="whatsapp" size={16} /> Chiedici su WhatsApp: ti diciamo subito se possiamo aiutarti.
+        <Icon name="whatsapp" size={16} /> Chiedici su WhatsApp
       </a>
     </p>
   </div>

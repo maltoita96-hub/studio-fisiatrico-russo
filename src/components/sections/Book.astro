@@ -38,7 +38,7 @@ const motion = variant === 'motion';
             ? ['Sempre sotto guida clinica', 'Si parte dalla tua situazione reale']
             : ['Senza impegnativa', 'Ecografia in sede', 'Risposta entro un giorno lavorativo']
           ).map((x) => (
-            <li class="flex items-center gap-2.5 text-[0.92rem] font-semibold">
+            <li class="flex items-center gap-2.5 text-body-sm font-semibold">
               <span class:list={['grid place-items-center w-[24px] h-[24px] rounded-full shrink-0', motion ? 'bg-aqua text-aqua-ink' : 'bg-accent text-white']}>
                 <Icon name="check" size={13} />
               </span>
@@ -72,7 +72,7 @@ const motion = variant === 'motion';
       <p class="font-display font-semibold text-[1.35rem] leading-snug">
         {motion ? 'Prenota la valutazione' : 'Ti richiamiamo noi.'}
       </p>
-      <p class="mt-1.5 text-[0.9rem] opacity-70">Bastano nome e numero: nessun dato sulla salute.</p>
+      <p class="mt-1.5 text-body-sm opacity-70">Bastano nome e numero: nessun dato sulla salute.</p>
       <div class="grid sm:grid-cols-2 gap-3.5 mt-5">
         <div class="field">
           <label for={`${variant}-nome`}>Nome</label>
@@ -98,7 +98,7 @@ const motion = variant === 'motion';
         <input type="checkbox" name="consenso" required />
         <span>Acconsento al trattamento dei dati per essere ricontattato. Leggi l’<a href="/privacy/">informativa privacy</a>.</span>
       </label>
-      <p class="mt-3.5 text-[0.78rem] opacity-60 text-center">
+      <p class="mt-3.5 text-label opacity-60 text-center">
         Premendo Invia si apre la tua app WhatsApp col messaggio già scritto: nessun dato viene salvato su questo sito.
       </p>
     </form>
