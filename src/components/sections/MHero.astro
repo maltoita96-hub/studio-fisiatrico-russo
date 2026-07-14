@@ -23,7 +23,7 @@ const items = ['Forza', 'Ritorno al movimento', 'Controllo del gesto', 'Prevenzi
         <a class="btn btn-aqua btn-lg" href="#prenota">Inizia il percorso <span class="arr" aria-hidden="true">→</span></a>
         <a class="btn btn-ghost-night btn-lg" href="#programmi">Vedi i programmi</a>
       </div>
-      <p class="mt-5 flex items-center gap-2 text-[0.94rem] font-semibold" data-reveal data-delay="300">
+      <p class="mt-5 flex items-center gap-2 text-body-sm font-semibold" data-reveal data-delay="300">
         <span class="text-aqua"><Icon name="whatsapp" size={16} /></span>
         Dubbi? <a class="underline underline-offset-4 decoration-[color:var(--color-aqua)] hover:text-aqua" href="https://wa.me/393421904804?text=Ciao%2C%20vorrei%20informazioni%20sul%20percorso%20Motion." target="_blank" rel="noopener">Scrivici su WhatsApp</a>: ti rispondiamo entro un giorno lavorativo.
       </p>
@@ -32,7 +32,7 @@ const items = ['Forza', 'Ritorno al movimento', 'Controllo del gesto', 'Prevenzi
       {meta.map((m) => (
         <div class="border border-[color:var(--night-line)] bg-night-surface rounded-[var(--radius-md)] px-6 py-5" data-reveal>
           <p class="font-motion font-black uppercase tracking-[0.04em] text-[1.05rem] text-night-ink">{m.t}</p>
-          <p class="mt-1 text-[0.92rem] text-[color:var(--night-muted)]">{m.d}</p>
+          <p class="mt-1 text-body-sm text-[color:var(--night-muted)]">{m.d}</p>
         </div>
       ))}
     </div>

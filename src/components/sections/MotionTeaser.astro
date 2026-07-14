@@ -24,8 +24,8 @@ const pilastri = [
     <div class="grid md:grid-cols-3 gap-x-8 gap-y-6 border-t border-[color:var(--night-line)] pt-8" data-stagger="120">
       {pilastri.map((p, i) => (
         <div data-reveal>
-          <span class="font-motion font-bold uppercase tracking-[0.06em] text-[0.76rem] text-aqua">0{i + 1} / {p.k}</span>
-          <p class="mt-2.5 text-[0.95rem] text-[color:var(--night-muted)] max-w-[34ch]">{p.d}</p>
+          <span class="font-motion font-bold uppercase tracking-[0.06em] text-label text-aqua">0{i + 1} / {p.k}</span>
+          <p class="mt-2.5 text-body-sm text-[color:var(--night-muted)] max-w-[34ch]">{p.d}</p>
         </div>
       ))}
     </div>

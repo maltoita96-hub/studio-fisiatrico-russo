@@ -1,4 +1,5 @@
 ---
+import Icon from '../Icon.astro';
 /* Prova sociale conforme alla pubblicità sanitaria (L. 145/2018):
    niente testimonianze riportate sul sito — solo il dato aggregato, verificabile,
    con rimando alle piattaforme dove le recensioni sono pubbliche e non selezionabili. */
@@ -13,11 +14,13 @@
       <div class="flex items-baseline gap-4 flex-wrap">
         <span class="font-display font-semibold text-ink leading-none text-[clamp(3.2rem,6vw,4.6rem)]">5,0</span>
         <div>
-          <span class="text-accent-ink tracking-[3px] text-[1.05rem]" role="img" aria-label="5 stelle su 5">★★★★★</span>
-          <p class="text-[0.95rem] text-muted mt-1">media di oltre 170 recensioni pubbliche<br />105 su MioDottore · 69 su Google</p>
+          <span class="flex items-center gap-1 text-accent-ink" role="img" aria-label="5 stelle su 5">
+            {Array.from({ length: 5 }).map(() => <Icon name="star" size={16} />)}
+          </span>
+          <p class="text-body-sm text-muted mt-1">media di oltre 170 recensioni pubbliche<br />105 su MioDottore · 69 su Google</p>
         </div>
       </div>
-      <p class="mt-5 text-[0.97rem] text-muted max-w-[52ch]">
+      <p class="mt-5 text-body-sm text-muted max-w-[52ch]">
         Le recensioni dei pazienti vivono sulle piattaforme, dove nessuno può selezionarle o
         riscriverle. Leggile lì, prima di prenotare: è il modo più onesto di scegliere un medico.
       </p>

@@ -4,11 +4,11 @@ import Icon from '../Icon.astro';
 import ritratto from '../../assets/dott-russo.jpg';
 ---
 <header class="hero" id="top">
-  <div class="wrap grid items-center gap-[clamp(2rem,5vw,4.5rem)] lg:grid-cols-[1.05fr_0.95fr] pt-[clamp(2.5rem,5.5vw,5rem)] pb-[clamp(3rem,7vw,6.5rem)]">
+  <div class="wrap grid items-center gap-[clamp(2rem,5vw,4.5rem)] lg:grid-cols-[1.2fr_0.8fr] pt-[clamp(2.5rem,5.5vw,5rem)] pb-[clamp(3rem,7vw,6.5rem)]">
     <div>
       <span class="eyebrow" data-reveal>Fisiatria e riabilitazione · Misterbianco (Catania)</span>
-      <h1 class="mt-4 text-ink font-semibold leading-[1.02] tracking-[-0.02em] text-[clamp(2.6rem,5.6vw,4.4rem)]" data-reveal data-delay="80">
-        Dal dolore<br />al movimento,<br /><em class="not-italic font-display italic text-accent-ink">senza paura.</em>
+      <h1 class="mt-4 text-ink font-bold leading-[0.98] tracking-[-0.025em] text-[clamp(3rem,7vw,5.25rem)]" data-reveal data-delay="80">
+        Dal dolore<br />al movimento,<br /><em class="not-italic font-display italic text-accent-ink text-[1.06em]">senza paura.</em>
       </h1>
       <p class="mt-6 max-w-[46ch] text-[clamp(1.06rem,1.5vw,1.25rem)] text-muted" data-reveal data-delay="160">
         Prima capiamo da dove viene il tuo dolore: visita ed ecografia nello stesso appuntamento.
@@ -18,13 +18,15 @@ import ritratto from '../../assets/dott-russo.jpg';
         <a class="btn btn-accent btn-lg" href="#prenota">Prenota la prima visita <span class="arr" aria-hidden="true">→</span></a>
         <a class="btn btn-outline btn-lg" href="#percorso">Come funziona</a>
       </div>
-      <p class="mt-5 flex items-center gap-2 text-[0.94rem] font-semibold" data-reveal data-delay="300">
+      <p class="mt-5 flex items-center gap-2 text-body-sm font-semibold" data-reveal data-delay="300">
         <span class="text-accent-ink"><Icon name="phone" size={16} /></span>
         Preferisci parlarci? <a class="underline underline-offset-4 decoration-accent hover:text-accent-ink" href="tel:+393421904804">342 190 4804</a>, anche su WhatsApp.
       </p>
-      <div class="mt-8 pt-6 border-t border-line flex flex-wrap items-center gap-x-7 gap-y-3 text-[0.88rem] text-muted" data-reveal data-delay="360">
+      <div class="mt-8 pt-6 border-t border-line flex flex-wrap items-center gap-x-7 gap-y-3 text-caption text-muted" data-reveal data-delay="360">
         <span class="flex items-center gap-2">
-          <span class="text-accent-ink tracking-[2px]" role="img" aria-label="5 stelle su 5">★★★★★</span>
+          <span class="flex items-center gap-0.5 text-accent-ink" role="img" aria-label="5 stelle su 5">
+            {Array.from({ length: 5 }).map(() => <Icon name="star" size={13} />)}
+          </span>
           <strong class="text-ink font-display text-[1.05rem]">5,0</strong>
           su oltre 170 recensioni:
           <a class="underline underline-offset-2 hover:text-accent-ink" href="https://g.co/kgs/RT4qEMv" target="_blank" rel="noopener">Google</a>
@@ -36,7 +38,7 @@ import ritratto from '../../assets/dott-russo.jpg';
     </div>
 
     <div class="relative max-w-[460px] w-full justify-self-center lg:justify-self-end" data-reveal="scale" data-delay="180">
-      <div class="absolute -inset-x-4 top-8 -bottom-4 bg-sand rounded-[var(--radius-lg)]" aria-hidden="true"></div>
+      <div class="absolute -inset-x-6 top-10 -bottom-6 bg-sand rounded-[var(--radius-lg)]" aria-hidden="true"></div>
       <figure class="relative m-0">
         <Image
           src={ritratto}
@@ -47,7 +49,7 @@ import ritratto from '../../assets/dott-russo.jpg';
           loading="eager"
           fetchpriority="high"
         />
-        <figcaption class="relative mt-3.5 mb-1 px-1 flex items-baseline justify-between gap-3 text-[0.84rem] text-muted">
+        <figcaption class="relative mt-3.5 mb-1 px-1 flex items-baseline justify-between gap-3 text-caption text-muted">
           <span class="font-display font-semibold text-ink text-[1rem]">Dott. Antonino Russo</span>
           <span>Specialista in Medicina Fisica e Riabilitativa</span>
         </figcaption>
